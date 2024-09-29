@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-export const safari = () => {
+const Safari = () => {
   return (
     <div
       className="flex w-full border-dotted border-8 overflow-hidden"
@@ -91,3 +91,5 @@ export const safari = () => {
     </div>
   );
 };
+
+export default Safari;
