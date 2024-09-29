@@ -1,6 +1,6 @@
 # Hacktoberfest 2024
 
-![Hactoberfest 2024](/hacktoberfest.jpg)
+![Hactoberfest 2024](/images/hacktoberfest.jpg)
 
 ## Gojirun
 
@@ -9,7 +9,7 @@ Gojirun is a 2D platformer game inspired by the classic T-Rex run from Chrome. T
 ## How to contribute
 
 Read more:
-[Contributing](/Contributing.md)
+[Contributing.md](/Contributing.md)
 
 ## License
 
@@ -18,4 +18,3 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Acknowledgments
 
 We will create a section on the website to acknowledge the contributions in making of Gojirun.
-
