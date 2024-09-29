@@ -1,6 +1,6 @@
 # Hacktoberfest 2024
 
-![Hactoberfest 2024](https:///assets.jfif)
+![Hactoberfest 2024](/hacktoberfest2024.jpg)
 
 ## Gojirun
 
