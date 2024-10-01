@@ -1,23 +1,20 @@
-import { motion } from "framer-motion";
+import React from "react";
 
 const Safari = () => {
   return (
-    <div
-      className="flex w-full border-dotted border-8 overflow-hidden"
-      id="safari"
-    >
-      <motion.svg
+    <>
+      <svg
         className="inline-block animate-scroll"
-        width="550"
-        height="200"
+        width="1000"
+        height="auto"
         viewBox="0 0 550 200"
         xmlns="http://www.w3.org/2000/svg"
-        animate={{ x: isRunning ? -550 : 0 }} // Animate the x position
-        transition={{ duration: 5, repeat: Infinity, ease: "linear" }} // Animation properties
+        // animate={{ x: isRunning ? -550 : 0 }} // Animate the x position
+        // transition={{ duration: 5, repeat: Infinity, ease: "linear" }} // Animation properties
       >
         {/* Sky */}
         <g fill="#FFFFFF" id="sky">
-          <rect width="550" height="200" fill="#4A90E2" />
+          <rect width="100%" height="400" fill="#4A90E2" />
         </g>
         {/* Clouds */}
         <g fill="#FFFFFF" id="cloud1">
@@ -81,14 +78,14 @@ const Safari = () => {
           <rect x="90" y="120" width="10" height="10" />
           <rect x="110" y="130" width="10" height="10" />
         </g>
-        <g fill="#8B4513" id="cactus2">
+        <g fill="#006400" id="cactus2">
           {/* cact2 */}
           <rect x="350" y="100" width="10" height="40" />
           <rect x="340" y="110" width="10" height="10" />
           <rect x="360" y="120" width="10" height="10" />
         </g>
-      </motion.svg>
-    </div>
+      </svg>
+    </>
   );
 };
 
