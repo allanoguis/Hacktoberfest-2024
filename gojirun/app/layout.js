@@ -23,8 +23,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className="overscroll-behavior-none invisible-scroll"
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className="{`overscroll-behavior-none invisible-scroll ${geistSans.variable} ${geistMono.variable} antialiased`}"
       >
         {children}
       </body>
