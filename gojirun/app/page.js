@@ -6,7 +6,7 @@ import CollaboratorsPage from "./sections/collaborators/page";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-items-center min-h-screen p-0 gap-16 font-[family-name:var(--font-geist-sans)]">
+    <div className="flex flex-col items-center justify-items-center min-h-screen p-0  font-[family-name:var(--font-geist-sans)]">
       <>
         <Navigation />
       </>
