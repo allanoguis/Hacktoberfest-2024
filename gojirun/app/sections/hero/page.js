@@ -1,6 +1,6 @@
 export default function Hero() {
   return (
-    <section className="relative flex items-center justify-center text-white h-[60vh] w-[100vw] bg-cover bg-center bg-[url('/')]">
+    <section className="relative flex items-center justify-center text-white h-[60vh] w-[100vw] bg-cover bg-center bg-black bg-[url('/')]">
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black opacity-50"></div>
       
