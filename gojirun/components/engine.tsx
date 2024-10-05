@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-// import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 
 const JUMP_HEIGHT = 150;
 const GAME_HEIGHT = 200;
@@ -75,7 +75,7 @@ export default function Engine() {
   }, [gameStarted, gameOver, cactusLeft, dinoBottom]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-inherit">
       <div
         className="relative w-[600px] h-[200px] border-b-2 border-black bg-white overflow-hidden"
         onClick={jump}
@@ -93,7 +93,7 @@ export default function Engine() {
       </div>
       <div className="mt-4 text-2xl font-bold">Score: {score}</div>
       {!gameStarted && (
-        <button
+        <Button
           onClick={() => {
             setGameStarted(true);
             setGameOver(false);
@@ -102,7 +102,7 @@ export default function Engine() {
           className="mt-4"
         >
           {gameOver ? "Restart" : "Start Game"}
-        </button>
+        </Button>
       )}
       {gameOver && (
         <div className="mt-4 text-xl text-red-600 font-bold">Game Over!</div>
