@@ -1,5 +1,4 @@
 'use client'
-
 import Image from 'next/image'
 import { Github } from 'lucide-react'
 import { Button } from "@/components/ui/button"
@@ -15,7 +14,7 @@ const contributors = [
   { id: 6, name: 'Frank Miller', username: 'frank_developer', avatar: '/placeholder.svg?height=100&width=100', contributions: 92 },
 ]
 
-export function ContributorsSection() {
+export default function ContributorsSection() {
   return (
     (<div className="min-h-screen bg-background text-foreground">
       <div className="container mx-auto px-4 py-8">
