@@ -1,3 +1,9 @@
 export default function Footer() {
-  return <div>Collaborators</div>;
+  return (
+    <section id="collaborators">
+      <div className="flex min-h-dvh bg-slate-700 justify-center">
+        Collaborators
+      </div>
+    </section>
+  );
 }
