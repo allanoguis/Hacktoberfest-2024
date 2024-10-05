@@ -2,9 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
 
 const JUMP_HEIGHT = 150;
 const GAME_HEIGHT = 200;
@@ -107,7 +105,9 @@ export default function Engine() {
             style={{ left: `${cactusLeft}px` }}
           />
         </div>
-        <div className="text-2xl font-bold text-purple-300 mb-4">Score: {score}</div>
+        <div className="text-2xl font-bold text-purple-300 mb-4">
+          Score: {score}
+        </div>
         {!gameStarted && (
           <Button
             onClick={() => {

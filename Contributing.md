@@ -92,7 +92,17 @@ npm test   # or whatever command is relevant to your project
 > Ensure that your code passes all tests.
 > If you are fixing an issue, please reference it in your pull request.
 
-### PR Guidelines
+### Before You Proceed
+
+> [!TIP]
+> Before making a new branch, Make sure to get the latest update from the main branch.
+> `git fetch origin`
+> `git pull`
+> Then create a new branch based on the issue.
+> Make sure that you are working on a single problem.
+> If you have other concerns, feel free to go to discussions on the GitHub project and make a new discussion.
+
+## PR Guidelines
 
 **1. Write Small, Focused PRs**
 

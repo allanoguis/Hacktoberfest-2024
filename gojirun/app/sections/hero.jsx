@@ -2,9 +2,9 @@ import { Button } from "@/components/ui/button";
 
 export default function Hero() {
   return (
-    <section className="relative flex items-center justify-center text-white h-[60vh] w-full bg-cover bg-center bg-gradient-to-br from-gray-900 to-black">
+    <section className="relative flex items-center justify-center h-[60vh] w-full bg-cover bg-center bg-gradient-to-br from-gray-900 to-black">
       {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black opacity-50"></div>
+      <div className="absolute inset-0 bg-background opacity-50"></div>
 
       {/* Content */}
       <div className="relative z-10 text-center">
