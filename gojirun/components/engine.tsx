@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 
 const JUMP_HEIGHT = 150;
 const GAME_HEIGHT = 200;
@@ -33,6 +33,7 @@ export default function Engine() {
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
       if (event.code === "Space") {
+        console.log(event.code);
         if (!gameStarted) {
           setGameStarted(true);
           setGameOver(false);
@@ -74,6 +75,12 @@ export default function Engine() {
     }
   }, [gameStarted, gameOver, cactusLeft, dinoBottom]);
 
+  const handleStartGame = () => {
+    setGameStarted(true);
+    setGameOver(false);
+    setScore(0);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-inherit">
       <div
@@ -93,15 +100,9 @@ export default function Engine() {
       </div>
       <div className="mt-4 text-2xl font-bold">Score: {score}</div>
       {!gameStarted && (
-        <Button
-          onClick={() => {
-            setGameStarted(true);
-            setGameOver(false);
-            setScore(0);
-          }}
-          className="mt-4"
-        >
-          {gameOver ? "Restart" : "Start Game"}
+        <Button onClick={handleStartGame} className="mt-4">
+          {gameOver ? "Restart" : "Start Game"}{" "}
+          {/* Ensure children prop is accepted */}
         </Button>
       )}
       {gameOver && (
