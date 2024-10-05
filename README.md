@@ -1,6 +1,6 @@
 # Hacktoberfest 2024
 
-![Hactoberfest 2024](/images/hacktoberfest.jpg)
+![Hactoberfest 2024](hacktoberfest.jpg)
 
 ## Gojirun
 
@@ -10,12 +10,6 @@ Gojirun is a 2D platformer game inspired by the classic T-Rex run from Chrome. T
 
 Read more:
 [Contributing.md](/Contributing.md)
-
-> [!TIP]
-> Make sure you to make a pull request from the branch created under the issues listed in the project.
-> Create a pull request based on the branch created so we can track the pull request in reference to the issue number
-
-![alt text](image.png)
 
 ## License
 

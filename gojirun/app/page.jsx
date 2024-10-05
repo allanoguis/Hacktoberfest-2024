@@ -1,14 +1,13 @@
 "use client";
-import { ThemeProvider } from "next-themes";
-import Hero from "./sections/hero/page";
-import Navigation from "./sections/navigation/page";
-import Game from "./sections/game/page";
-import Footer from "./sections/footer/page";
-import CollaboratorsPage from "./sections/collaborators/page";
+import Hero from "./sections/hero";
+import Navigation from "./sections/navigation";
+import Game from "./sections/game";
+import Footer from "./sections/footer";
+import ContributorsSection from "./sections/contributors";
 
 export default function Home() {
   return (
-    <ThemeProvider>
+
       <div className="flex flex-col items-center justify-items-center p-0 font-[family-name:var(--font-geist-sans)]">
         <>
           <Navigation />
@@ -20,12 +19,12 @@ export default function Home() {
           <Game />
         </>
         <>
-          <CollaboratorsPage />
+          <ContributorsSection />
         </>
         <>
           <Footer />
         </>
       </div>
-    </ThemeProvider>
+
   );
 }

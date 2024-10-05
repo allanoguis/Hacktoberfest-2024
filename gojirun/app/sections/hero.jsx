@@ -1,3 +1,4 @@
+'use client';
 export default function Hero() {
   return (
     <section className="relative flex items-center justify-center text-white h-[60vh] w-[100vw] bg-cover bg-center bg-black bg-[url('/')]">
