@@ -1,5 +1,5 @@
-import Engine from "@/app/components/Engine";
 import React from "react";
+import Engine from "@/app/components/engine";
 
 export default function Game() {
   return (
