@@ -11,6 +11,12 @@ Gojirun is a 2D platformer game inspired by the classic T-Rex run from Chrome. T
 Read more:
 [Contributing.md](/Contributing.md)
 
+> [!TIP]
+> Make sure you to make a pull request from the branch created under the issues listed in the project.
+> Create a pull request based on the branch created so we can track the pull request in reference to the issue number
+
+![alt text](image.png)
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
