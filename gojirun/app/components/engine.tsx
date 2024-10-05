@@ -3,13 +3,13 @@
 import React, { useState, useEffect, useCallback } from "react";
 // import { Button } from "@/components/ui/button";
 
-const JUMP_HEIGHT = 100;
+const JUMP_HEIGHT = 150;
 const GAME_HEIGHT = 200;
 const GAME_WIDTH = 600;
 const CACTUS_WIDTH = 20;
 const DINO_WIDTH = 40;
 const DINO_HEIGHT = 40;
-const GAME_SPEED = 5;
+const GAME_SPEED = 10;
 
 export default function Engine() {
   const [gameStarted, setGameStarted] = useState(false);
