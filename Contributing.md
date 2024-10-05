@@ -124,6 +124,9 @@ npm test   # or whatever command is relevant to your project
 
 - [**Automated and Manual Testing**: Ensure your changes are thoroughly tested, both manually and with automated tests, to catch any potential issues before the PR is reviewed1](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/getting-started/best-practices-for-pull-requests).
 
+> [!TIP]
+> For major changes or UI changes, please include a screenshot on how it looks like on your end.
+> It'll make the review faster for easier and faster pull merges.
 
 Happy Hacking!
 
