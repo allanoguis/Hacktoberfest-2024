@@ -128,6 +128,9 @@ npm test   # or whatever command is relevant to your project
 > For major changes or UI changes, please include a screenshot on how it looks like on your end.
 > It'll make the review faster for easier and faster pull merges.
 
+![image](https://github.com/user-attachments/assets/9ae950cb-5f8b-476f-8cd7-a00eaf989a8a)
+
+
 Happy Hacking!
 
 [EOF]
