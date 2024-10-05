@@ -21,6 +21,11 @@ Read more:
 
 We’d love to hear your thoughts! If you have any ideas, feedback, or even just want to let us know how we’re doing, feel free to open an issue or drop us a message. Your feedback is greatly appreciated and helps improve the project!
 
+## Contributors
+<a href="https://github.com/allanoguis/Hacktoberfest-2024/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=allanoguis/Hacktoberfest-2024" />
+</a>
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
