@@ -16,10 +16,10 @@ const contributors = [
 
 export default function ContributorsSection() {
   return (
-    (<div className="min-h-screen bg-background text-foreground">
+    (<div className="min-h-fit bg-background text-foreground">
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold">GitHub Contributors</h1>
+          <h1 className="text-3xl text-center font-bold">GitHub Contributors</h1>
         </div>
         <div className="flex flex-wrap justify-center gap-6">
           {contributors.map((contributor) => (

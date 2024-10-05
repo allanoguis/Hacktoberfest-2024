@@ -1,8 +1,10 @@
-'use client';
 import React from 'react'
+import Engine from '@/components/engine'
 
 export default function ContributorsSection() {
     return (
-    <div>game</div>
+    <div>
+    <Engine />
+    </div>
   )
 }
