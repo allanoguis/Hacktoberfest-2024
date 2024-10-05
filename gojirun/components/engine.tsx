@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const JUMP_HEIGHT = 150;
 const GAME_HEIGHT = 200;
@@ -82,35 +83,50 @@ export default function Engine() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-inherit">
-      <div
-        className="relative w-[600px] h-[200px] border-b-2 border-black bg-white overflow-hidden"
-        onClick={jump}
-      >
-        {/* Dino */}
+    <Card className="w-full max-w-3xl bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-lg border border-purple-500/20 text-white">
+      <CardHeader>
+        <CardTitle className="text-3xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+          Gojirun Game
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="flex flex-col items-center justify-center">
         <div
-          className="absolute bottom-0 left-10 w-[40px] h-[40px] bg-black"
-          style={{ bottom: `${dinoBottom}px` }}
-        />
-        {/* Cactus */}
-        <div
-          className="absolute bottom-0 w-[20px] h-[40px] bg-green-700"
-          style={{ left: `${cactusLeft}px` }}
-        />
-      </div>
-      <div className="mt-4 text-2xl font-bold">Score: {score}</div>
-      {!gameStarted && (
-        <Button onClick={handleStartGame} className="mt-4">
-          {gameOver ? "Restart" : "Start Game"}{" "}
-          {/* Ensure children prop is accepted */}
-        </Button>
-      )}
-      {gameOver && (
-        <div className="mt-4 text-xl text-red-600 font-bold">Game Over!</div>
-      )}
-      <div className="mt-4 text-sm text-gray-600">
-        Press spacebar to jump or click/tap the game area
-      </div>
-    </div>
+          className="relative w-[600px] h-[200px] border-b-2 border-purple-500 bg-gray-900 overflow-hidden rounded-lg mb-4"
+          onClick={jump}
+        >
+          {/* Dino */}
+          <div
+            className="absolute bottom-0 left-10 w-[40px] h-[40px] bg-purple-500"
+            style={{ bottom: `${dinoBottom}px` }}
+          />
+          {/* Cactus */}
+          <div
+            className="absolute bottom-0 w-[20px] h-[40px] bg-pink-500"
+            style={{ left: `${cactusLeft}px` }}
+          />
+        </div>
+        <div className="text-2xl font-bold text-purple-300 mb-4">
+          Score: {score}
+        </div>
+        {!gameStarted && (
+          <Button
+            onClick={() => {
+              setGameStarted(true);
+              setGameOver(false);
+              setScore(0);
+            }}
+            className="bg-gradient-to-r from-purple-500 to-pink-600 text-white hover:from-purple-600 hover:to-pink-700 transition-colors"
+          >
+            {gameOver ? "Restart" : "Start Game"}
+          </Button>
+        )}
+        {gameOver && (
+          <div className="mt-4 text-xl text-pink-500 font-bold">Game Over!</div>
+        )}
+        <div className="mt-4 text-sm text-purple-300">
+          Press spacebar to jump or click/tap the game area
+        </div>
+      </CardContent>
+    </Card>
   );
 }
