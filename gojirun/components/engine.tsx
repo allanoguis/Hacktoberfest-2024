@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "./ui/button";
 
 const JUMP_HEIGHT = 150;
 const GAME_HEIGHT = 200;
