@@ -3,13 +3,14 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import dinoImage from "@/app/images/gojirav2.png"; // Import gojira It's time
 
 const JUMP_HEIGHT = 150;
 const GAME_HEIGHT = 200;
-const GAME_WIDTH = 600;
+const GAME_WIDTH = 1000;
 const CACTUS_WIDTH = 20;
-const DINO_WIDTH = 40;
-const DINO_HEIGHT = 40;
+const DINO_WIDTH = 80;
+const DINO_HEIGHT = 80;
 const GAME_SPEED = 10;
 
 export default function Engine() {
@@ -67,6 +68,7 @@ export default function Engine() {
           cactusLeft < DINO_WIDTH &&
           dinoBottom < CACTUS_WIDTH
         ) {
+          setCactusLeft(GAME_WIDTH); // Reset cactus position on gamover
           setGameOver(true);
           setGameStarted(false);
         }
@@ -80,10 +82,11 @@ export default function Engine() {
     setGameStarted(true);
     setGameOver(false);
     setScore(0);
+    setCactusLeft(GAME_WIDTH); // Reset cactus position when the game starts
   };
 
   return (
-    <Card className="w-full max-w-3xl bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-lg border border-purple-500/20 text-white">
+    <Card className="w-full min-w-3xl bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-lg border border-purple-500/20 text-white">
       <CardHeader>
         <CardTitle className="text-3xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
           Gojirun Game
@@ -91,13 +94,15 @@ export default function Engine() {
       </CardHeader>
       <CardContent className="flex flex-col items-center justify-center">
         <div
-          className="relative w-[600px] h-[200px] border-b-2 border-purple-500 bg-gray-900 overflow-hidden rounded-lg mb-4"
+          className={`relative w-[1000px] h-[200px] border-b-2 border-purple-500 bg-gray-900 overflow-hidden rounded-lg mb-4`}
           onClick={jump}
         >
           {/* Dino */}
-          <div
-            className="absolute bottom-0 left-10 w-[40px] h-[40px] bg-purple-500"
+          <img
+            src={dinoImage.src} // Use the imported PNG file
+            className={`absolute bottom-0 left-10 w-[80px] h-[80px] bg-transparent`}
             style={{ bottom: `${dinoBottom}px` }}
+            alt="Dino" // Add alt text for accessibility
           />
           {/* Cactus */}
           <div
