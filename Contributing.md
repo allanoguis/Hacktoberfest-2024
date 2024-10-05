@@ -52,6 +52,26 @@ Click on "New Pull Request" and select the branch you just pushed.
 
 Wait for the project owner to review your changes and merge them into the main branch.
 
+### **Prerequisites**
+
+Before you begin, make sure you have met the following requirements:
+- You have installed the latest version of [Git](https://git-scm.com/).
+- You have a working installation of [Node.js](https://nodejs.org/) (or any other specific tool related to your project).
+- You have read the project's [README.md](./README.md) for instructions on setting up the project.
+
+### **Code of Conduct**
+
+Please adhere to our [Code of Conduct](./CODE_OF_CONDUCT.md) when contributing to this project.
+
+### **Testing Your Changes**
+
+Before submitting your pull request, ensure that all existing tests pass and that any new tests are written and passing.
+To run the tests locally, use the following command:
+
+```bash
+npm test   # or whatever command is relevant to your project
+
+
 > [!NOTE]
 > Guidelines
 >
