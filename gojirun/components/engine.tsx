@@ -2,7 +2,9 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
 
 const JUMP_HEIGHT = 150;
 const GAME_HEIGHT = 200;
@@ -34,6 +36,7 @@ export default function Engine() {
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
       if (event.code === "Space") {
+        console.log(event.code);
         if (!gameStarted) {
           setGameStarted(true);
           setGameOver(false);
@@ -74,6 +77,12 @@ export default function Engine() {
       return () => clearInterval(gameLoop);
     }
   }, [gameStarted, gameOver, cactusLeft, dinoBottom]);
+
+  const handleStartGame = () => {
+    setGameStarted(true);
+    setGameOver(false);
+    setScore(0);
+  };
 
   return (
     <Card className="w-full max-w-3xl bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-lg border border-purple-500/20 text-white">

@@ -31,7 +31,7 @@ export default function CollaboratorsPage() {
   }, []);
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-gray-900 to-black text-white">
+    <div className="min-h-fit w-full bg-gradient-to-br from-gray-900 to-black text-white">
       <div className="container mx-auto px-4 py-12">
         <div className="mb-12 text-center">
           <h1 className="text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
