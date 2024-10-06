@@ -30,14 +30,16 @@ export default function Engine() {
   const canvasRef = useRef(null);
   const gojiraImgRef = useRef(null); 
   const obstacleImgRef = useRef(null); 
-  if (!gojiraImgRef.current) {
-    gojiraImgRef.current = new Image();
-    gojiraImgRef.current.src = gojiraImage.src;
-  }
-  if (!obstacleImgRef.current) {
-    obstacleImgRef.current = new Image(); // Create a new Image object for the obstacle
-    obstacleImgRef.current.src = obstacleImage.src; // Assign the source for the obstacle image
-  }
+  
+  const loadImage = (ref, src) => {
+    if (typeof Image !== "undefined" && !ref.current) { // Check if Image is defined
+      ref.current = new Image();
+      ref.current.src = src;
+    }
+  };
+
+  loadImage(gojiraImgRef, gojiraImage.src); // Load Gojira image
+  loadImage(obstacleImgRef, obstacleImage.src); // Load obstacle image
 
   const jump = useCallback(() => {
     if (!jumping && !gameOver) {
