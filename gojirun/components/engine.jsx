@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import gojiraImage from "@/app/images/gojirav3.svg";
 import obstacleImage from "@/app/images/tank.svg";
 
-const JUMP_HEIGHT = 350;
+
 const GAME_HEIGHT = 600;
 const GAME_WIDTH = 1000;
 const OBSTACLE_WIDTH = 100;
@@ -14,6 +14,11 @@ const GOJIRA_HEIGHT = 150;
 const GAME_SPEED = 20;
 const GROUND = 0;
 const SPAWN_POINT = 20; // Set spawn point for Gojira
+
+const JUMP_HEIGHT = 350;
+const jumpDuration = 260; // Total duration of the jump
+const jumpInterval = 20; // Interval for updating the jump height
+
 
 export default function Engine() {
   const [gameStarted, setGameStarted] = useState(false);
@@ -38,8 +43,7 @@ export default function Engine() {
     if (!jumping && !gameOver) {
       setJumping(true);
       let jumpHeight = 0; // Track the current jump height
-      const jumpDuration = 250; // Total duration of the jump
-      const jumpInterval = 20; // Interval for updating the jump height
+
 
       const jumpUp = setInterval(() => {
         if (jumpHeight < JUMP_HEIGHT) {
@@ -125,40 +129,32 @@ export default function Engine() {
 
         setScore((prevScore) => prevScore + 1);
 
-        // Define hitboxes
-        const GOJIRA_HITBOX = {
-          left: 20, // X position where the image is drawn
-          right: 20 + GOJIRA_WIDTH, // X position + width of the image
-          top: GAME_HEIGHT - ground - GOJIRA_HEIGHT, // Y position where the image is drawn
-          bottom: GAME_HEIGHT - ground, // Y position + height of the image
-        };
+        const isColliding = () => {
+            const gojiraRect = {
+                left: SPAWN_POINT,
+                right: SPAWN_POINT + GOJIRA_WIDTH,
+                top: GAME_HEIGHT - (jumping ? JUMP_HEIGHT : ground) - GOJIRA_HEIGHT,
+                bottom: GAME_HEIGHT - (jumping ? JUMP_HEIGHT : ground),
+            };
 
-        const OBSTACLE_HITBOX = {
-          left: obstacle,
-          right: obstacle + OBSTACLE_WIDTH,
-          top: GAME_HEIGHT - OBSTACLE_HEIGHT, // Adjusted to match the top of the obstacle image
-          bottom: GAME_HEIGHT, // Adjusted to match the bottom of the obstacle image
-        };
+            const obstacleRect = {
+                left: obstacle,
+                right: obstacle + OBSTACLE_WIDTH,
+                top: GAME_HEIGHT - OBSTACLE_HEIGHT,
+                bottom: GAME_HEIGHT,
+            };
 
-        const isColliding = (obstacle) => {
-            const gojiraY = GAME_HEIGHT - (jumping ? JUMP_HEIGHT : ground) - GOJIRA_HEIGHT; // Calculate Gojira's Y position
-
-            // Check for collision with the obstacle
-            return (
-                gojiraX < obstacle.x + obstacle.width &&
-                gojiraX + GOJIRA_WIDTH > obstacle.x &&
-                gojiraY < obstacle.y + obstacle.height &&
-                gojiraY + GOJIRA_HEIGHT > obstacle.y
+            // Check for collision using bounding rectangles
+            return !(
+                gojiraRect.right < obstacleRect.left ||
+                gojiraRect.left > obstacleRect.right ||
+                gojiraRect.bottom < obstacleRect.top ||
+                gojiraRect.top > obstacleRect.bottom
             );
         };
 
         // Check for collision
-        if (
-          GOJIRA_HITBOX.right > OBSTACLE_HITBOX.left &&
-          GOJIRA_HITBOX.left < OBSTACLE_HITBOX.right &&
-          GOJIRA_HITBOX.bottom > OBSTACLE_HITBOX.top &&
-          GOJIRA_HITBOX.top < OBSTACLE_HITBOX.bottom
-        ) {
+        if (isColliding()) {
           clearInterval(gameLoop); // Stop the game loop
           setObstacle(GAME_WIDTH); // Reset obstacle position on game over
           setGameOver(true);
