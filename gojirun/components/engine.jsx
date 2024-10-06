@@ -13,20 +13,21 @@ const GOJIRA_WIDTH = 150;
 const GOJIRA_HEIGHT = 150;
 const GAME_SPEED = 20;
 const GROUND = 0;
+const SPAWN_POINT = 20; // Set spawn point for Gojira
 
 export default function Engine() {
   const [gameStarted, setGameStarted] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [ground, setGround] = useState(GROUND);
-  const [obstacle, setObstacle] = useState(GAME_WIDTH); // Initial position of the obstacle
+  const [obstacle, setObstacle] = useState(GAME_WIDTH); // Spawn point of the obstacle
   const [score, setScore] = useState(0);
   const [jumping, setJumping] = useState(false);
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const gojiraImgRef = useRef<HTMLImageElement | null>(null);
-  const obstacleImgRef = useRef<HTMLImageElement | null>(null);
+  const canvasRef = useRef(null);
+  const gojiraImgRef = useRef(null); 
+  const obstacleImgRef = useRef(null); 
   if (!gojiraImgRef.current) {
     gojiraImgRef.current = new Image();
-    gojiraImgRef.current.src = gojiraImage.src; // Assign the source for the gojira image
+    gojiraImgRef.current.src = gojiraImage.src;
   }
   if (!obstacleImgRef.current) {
     obstacleImgRef.current = new Image(); // Create a new Image object for the obstacle
@@ -37,7 +38,7 @@ export default function Engine() {
     if (!jumping && !gameOver) {
       setJumping(true);
       let jumpHeight = 0; // Track the current jump height
-      const jumpDuration = 300; // Total duration of the jump
+      const jumpDuration = 250; // Total duration of the jump
       const jumpInterval = 20; // Interval for updating the jump height
 
       const jumpUp = setInterval(() => {
@@ -62,9 +63,8 @@ export default function Engine() {
   }, [jumping, gameOver]);
 
   useEffect(() => {
-    const handleKeyPress = (event: KeyboardEvent) => {
-      if (event.code === "Space") {
-        console.log(event.code);
+    const handleKeyPress = (event) => { // Removed type annotation
+      
         if (!gameStarted) {
           setGameStarted(true);
           setGameOver(false);
@@ -72,7 +72,6 @@ export default function Engine() {
         } else {
           jump();
         }
-      }
     };
 
     document.addEventListener("keydown", handleKeyPress);
@@ -92,7 +91,7 @@ export default function Engine() {
       // Spawn Gojira
       context.drawImage(
         gojiraImgRef.current,
-        20,
+        SPAWN_POINT, // Use the extracted starting point
         GAME_HEIGHT - (jumping ? JUMP_HEIGHT : ground) - GOJIRA_HEIGHT, // Use jumping state for Y position
         GOJIRA_WIDTH,
         GOJIRA_HEIGHT
@@ -113,7 +112,7 @@ export default function Engine() {
       }
     };
 
-    let gameLoop: NodeJS.Timeout; // Declare gameLoop variable
+    let gameLoop; 
 
     const startGameLoop = () => {
       gameLoop = setInterval(() => {
@@ -128,17 +127,29 @@ export default function Engine() {
 
         // Define hitboxes
         const GOJIRA_HITBOX = {
-          left: 20,
-          right: 20 + GOJIRA_WIDTH,
-          top: GAME_HEIGHT - ground - GOJIRA_HEIGHT,
-          bottom: GAME_HEIGHT - ground,
+          left: 20, // X position where the image is drawn
+          right: 20 + GOJIRA_WIDTH, // X position + width of the image
+          top: GAME_HEIGHT - ground - GOJIRA_HEIGHT, // Y position where the image is drawn
+          bottom: GAME_HEIGHT - ground, // Y position + height of the image
         };
 
         const OBSTACLE_HITBOX = {
           left: obstacle,
           right: obstacle + OBSTACLE_WIDTH,
-          top: GAME_HEIGHT - 40,
-          bottom: GAME_HEIGHT,
+          top: GAME_HEIGHT - OBSTACLE_HEIGHT, // Adjusted to match the top of the obstacle image
+          bottom: GAME_HEIGHT, // Adjusted to match the bottom of the obstacle image
+        };
+
+        const isColliding = (obstacle) => {
+            const gojiraY = GAME_HEIGHT - (jumping ? JUMP_HEIGHT : ground) - GOJIRA_HEIGHT; // Calculate Gojira's Y position
+
+            // Check for collision with the obstacle
+            return (
+                gojiraX < obstacle.x + obstacle.width &&
+                gojiraX + GOJIRA_WIDTH > obstacle.x &&
+                gojiraY < obstacle.y + obstacle.height &&
+                gojiraY + GOJIRA_HEIGHT > obstacle.y
+            );
         };
 
         // Check for collision
@@ -223,7 +234,7 @@ export default function Engine() {
 
       <div className="mt-4 text-sm text-primary">
         click / tap the game area to jump
-        {/* Must disaable spacebar because it scrolls down */}
+        {/* Must disable spacebar because it scrolls down */}
       </div>
     </div>
   );
