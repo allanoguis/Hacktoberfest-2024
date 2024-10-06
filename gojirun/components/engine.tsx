@@ -1,32 +1,38 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import dinoImage from "@/app/images/gojirav2.png"; // Import gojira It's time
+import React, { useState, useEffect, useCallback, useRef } from "react";
+import gojiraImage from "@/app/images/gojirav3.svg";
 
-const JUMP_HEIGHT = 150;
-const GAME_HEIGHT = 200;
+const JUMP_HEIGHT = 350;
+const GAME_HEIGHT = 600;
 const GAME_WIDTH = 1000;
-const CACTUS_WIDTH = 20;
-const DINO_WIDTH = 80;
-const DINO_HEIGHT = 80;
-const GAME_SPEED = 10;
+const OBSTACLE_WIDTH = 20;
+const GOJIRA_WIDTH = 150;
+const GOJIRA_HEIGHT = 150;
+const GAME_SPEED = 20;
+const GROUND = 0;
 
 export default function Engine() {
   const [gameStarted, setGameStarted] = useState(false);
   const [gameOver, setGameOver] = useState(false);
-  const [dinoBottom, setDinoBottom] = useState(0);
-  const [cactusLeft, setCactusLeft] = useState(GAME_WIDTH);
+  const [ground, setGround] = useState(GROUND);
+  const [obstacle, setObstacle] = useState(GAME_WIDTH);
   const [score, setScore] = useState(0);
   const [jumping, setJumping] = useState(false);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const gojiraImgRef = useRef<HTMLImageElement | null>(null);
+  if (!gojiraImgRef.current) {
+    gojiraImgRef.current = new Image();
+    gojiraImgRef.current.src = gojiraImage.src;
+  }
+  const gojiraImg = gojiraImgRef.current; // Use the ref for the image
 
   const jump = useCallback(() => {
     if (!jumping && !gameOver) {
       setJumping(true);
-      setDinoBottom(JUMP_HEIGHT);
+      setGround(JUMP_HEIGHT);
       setTimeout(() => {
-        setDinoBottom(0);
+        setGround(GROUND);
         setJumping(false);
       }, 300);
     }
@@ -51,10 +57,35 @@ export default function Engine() {
   }, [gameStarted, jump]);
 
   useEffect(() => {
-    if (gameStarted && !gameOver) {
-      const gameLoop = setInterval(() => {
-        setCactusLeft((prevLeft) => {
-          if (prevLeft <= -CACTUS_WIDTH) {
+    const canvas = canvasRef.current;
+    const context = canvas?.getContext("2d");
+
+    if (!context) return;
+
+    const draw = () => {
+      // Clear the canvas
+      context.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+
+      // Spawn Gojira
+      context.drawImage(
+        gojiraImg,
+        20,
+        GAME_HEIGHT - ground - GOJIRA_HEIGHT,
+        GOJIRA_WIDTH,
+        GOJIRA_HEIGHT
+      );
+
+      // Spawn obstacle
+      context.fillStyle = "pink"; // Color for obstacle
+      context.fillRect(obstacle, GAME_HEIGHT - 40, OBSTACLE_WIDTH, 40); // Adjust height as needed
+    };
+
+    let gameLoop: NodeJS.Timeout; // Declare gameLoop variable
+
+    const startGameLoop = () => {
+      gameLoop = setInterval(() => {
+        setObstacle((prevLeft) => {
+          if (prevLeft <= -OBSTACLE_WIDTH) {
             return GAME_WIDTH;
           }
           return prevLeft - GAME_SPEED;
@@ -62,76 +93,92 @@ export default function Engine() {
 
         setScore((prevScore) => prevScore + 1);
 
+        // Define hitboxes
+        const GOJIRA_HITBOX = {
+          left: 20,
+          right: 20 + GOJIRA_WIDTH,
+          top: GAME_HEIGHT - ground - GOJIRA_HEIGHT,
+          bottom: GAME_HEIGHT - ground,
+        };
+
+        const OBSTACLE_HITBOX = {
+          left: obstacle,
+          right: obstacle + OBSTACLE_WIDTH,
+          top: GAME_HEIGHT - 40,
+          bottom: GAME_HEIGHT,
+        };
+
         // Check for collision
         if (
-          cactusLeft > 0 &&
-          cactusLeft < DINO_WIDTH &&
-          dinoBottom < CACTUS_WIDTH
+          GOJIRA_HITBOX.right > OBSTACLE_HITBOX.left &&
+          GOJIRA_HITBOX.left < OBSTACLE_HITBOX.right &&
+          GOJIRA_HITBOX.bottom > OBSTACLE_HITBOX.top &&
+          GOJIRA_HITBOX.top < OBSTACLE_HITBOX.bottom
         ) {
-          setCactusLeft(GAME_WIDTH); // Reset cactus position on gamover
+          clearInterval(gameLoop); // Stop the game loop
+          setObstacle(GAME_WIDTH); // Reset obstacle position on game over
           setGameOver(true);
           setGameStarted(false);
         }
-      }, 20);
 
-      return () => clearInterval(gameLoop);
+        draw(); // Call draw function to update the canvas
+      }, 1000 / 60); // 60 fps frame rate
+    };
+
+    if (gameStarted && !gameOver) {
+      startGameLoop(); // Start the game loop if the game is running
     }
-  }, [gameStarted, gameOver, cactusLeft, dinoBottom]);
+
+    return () => clearInterval(gameLoop); // Cleanup on component unmount
+  }, [gojiraImg, gameStarted, gameOver, obstacle, ground]);
 
   const handleStartGame = () => {
     setGameStarted(true);
     setGameOver(false);
     setScore(0);
-    setCactusLeft(GAME_WIDTH); // Reset cactus position when the game starts
+    setObstacle(GAME_WIDTH); // Reset obstacle position when the game starts
   };
 
+  const GameOverMessage = () => (
+    <span className="mt-5 text-2xl text-primary font-semibold ">
+      G A M E O V E R
+    </span>
+  );
+
+  const StartGameButton = ({ onClick, isGameOver }) => (
+    <span className="flex flex-col h-full left-500 mt-5">
+      <button
+        onClick={onClick}
+        className=" text-primary font-semibold animate-pulse antialiased"
+      >
+        {isGameOver ? "R E S T A R T" : "S T A R T   G A M E"}
+      </button>
+    </span>
+  );
+
   return (
-    <Card className="w-full min-w-3xl bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-lg border border-purple-500/20 text-white">
-      <CardHeader>
-        <CardTitle className="text-3xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-          Gojirun Game
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="flex flex-col items-center justify-center">
-        <div
-          className={`relative w-[1000px] h-[200px] border-b-2 border-purple-500 bg-gray-900 overflow-hidden rounded-lg mb-4`}
-          onClick={jump}
-        >
-          {/* Dino */}
-          <img
-            src={dinoImage.src} // Use the imported PNG file
-            className={`absolute bottom-0 left-10 w-[80px] h-[80px] bg-transparent`}
-            style={{ bottom: `${dinoBottom}px` }}
-            alt="Dino" // Add alt text for accessibility
-          />
-          {/* Cactus */}
-          <div
-            className="absolute bottom-0 w-[20px] h-[40px] bg-pink-500"
-            style={{ left: `${cactusLeft}px` }}
-          />
-        </div>
-        <div className="text-2xl font-bold text-purple-300 mb-4">
-          Score: {score}
-        </div>
+    <div className="flex flex-col relative w-full p-11 text-primary justify-center items-center">
+      <span className="absolute top-1 left-500">Score: {score}</span>
+
+      <canvas
+        ref={canvasRef} // Attach the ref to the canvas
+        id="gameCanvas"
+        width={GAME_WIDTH}
+        height={GAME_HEIGHT}
+        className="border border-purple-200 bg-purple-200/50"
+        onClick={jump}
+      />
+      <div className="flex flex-col absolute bottom-50 justify-center items-center">
+        {gameOver && <GameOverMessage />}
         {!gameStarted && (
-          <Button
-            onClick={() => {
-              setGameStarted(true);
-              setGameOver(false);
-              setScore(0);
-            }}
-            className="bg-gradient-to-r from-purple-500 to-pink-600 text-white hover:from-purple-600 hover:to-pink-700 transition-colors"
-          >
-            {gameOver ? "Restart" : "Start Game"}
-          </Button>
+          <StartGameButton onClick={handleStartGame} isGameOver={gameOver} />
         )}
-        {gameOver && (
-          <div className="mt-4 text-xl text-pink-500 font-bold">Game Over!</div>
-        )}
-        <div className="mt-4 text-sm text-purple-300">
-          Press spacebar to jump or click/tap the game area
-        </div>
-      </CardContent>
-    </Card>
+      </div>
+
+      <div className="mt-4 text-sm text-primary">
+        click / tap the game area to jump
+        {/* Must disaable spacebar because it scrolls down */}
+      </div>
+    </div>
   );
 }
