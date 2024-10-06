@@ -29,25 +29,25 @@ export default function Navigation() {
           {/* Navbar Links */}
           <div className="ml-10 flex items-center space-x-4">
             {/* Profile Button */}
-            <Button variant="ghost" className="text-purple-300 hover:text-white hover:bg-purple-500">
+            <Button variant="ghost" className="text-purple-300 hover:text-white hover:bg-purple-500 transition-all duration-300">
               <User className="inline-block mr-2 h-4 w-4" />
               Profile
             </Button>
             
             {/* High Scores Button */}
-            <Button variant="ghost" className="text-purple-300 hover:text-white hover:bg-purple-500">
+            <Button variant="ghost" className="text-purple-300 hover:text-white hover:bg-purple-500 transition-all duration-300">
               <Trophy className="inline-block mr-2 h-4 w-4" />
               High Scores
             </Button>
 
             {/* Settings Button */}
-            <Button variant="ghost" className="text-purple-300 hover:text-white hover:bg-purple-500">
+            <Button variant="ghost" className="text-purple-300 hover:text-white hover:bg-purple-500 transition-all duration-300">
               <Settings className="inline-block mr-2 h-4 w-4" />
               Settings
             </Button>
 
             {/* Help Button */}
-            <Button variant="ghost" className="text-purple-300 hover:text-white hover:bg-purple-500">
+            <Button variant="ghost" className="text-purple-300 hover:text-white hover:bg-purple-500 transition-all duration-300">
               <HelpCircle className="inline-block mr-2 h-4 w-4" />
               Help
             </Button>
@@ -55,7 +55,7 @@ export default function Navigation() {
             {/* Theme Toggle Button */}
             <Button
               variant="ghost"
-              className="text-purple-300 hover:text-white hover:bg-purple-500"
+              className="text-purple-300 hover:text-white hover:bg-purple-500 transition-all duration-300"
               onClick={() => setTheme(theme === "light" ? "dark" : "light")}
             >
               <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />

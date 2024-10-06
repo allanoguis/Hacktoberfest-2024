@@ -50,6 +50,23 @@ module.exports = {
           5: "hsl(var(--chart-5))",
         },
       },
+      keyframes: {
+  			gradient: {
+  				'0%': {
+  					backgroundPosition: '0% 50%'
+  				},
+  				'100%': {
+  					backgroundPosition: '100% 50%'
+  				}
+  			},
+      },
+      animation: {
+  			gradient: 'gradient 6s linear infinite',
+  			'spin-slow': 'spin 2s linear infinite',
+  			'spin-fast': 'spin 5s linear infinite',
+  			'accordion-down': 'accordion-down 0.2s ease-out',
+  			'accordion-up': 'accordion-up 0.2s ease-out'
+  		},
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
