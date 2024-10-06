@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import { Button } from "@/components/ui/button";
+import {Button} from "@/components/ui/button";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import dinoImage from "@/app/images/gojirav2.png"; // Import gojira It's time
 
@@ -120,7 +121,7 @@ export default function Engine() {
               setGameOver(false);
               setScore(0);
             }}
-            className="bg-gradient-to-r from-purple-500 to-pink-600 text-white hover:from-purple-600 hover:to-pink-700 transition-colors"
+            className="bg-gradient-to-r px-4 py-1 rounded-2xl text-base from-purple-500 to-pink-600 text-white hover:from-purple-600 hover:to-pink-700 transition-colors"
           >
             {gameOver ? "Restart" : "Start Game"}
           </Button>
@@ -129,7 +130,7 @@ export default function Engine() {
           <div className="mt-4 text-xl text-pink-500 font-bold">Game Over!</div>
         )}
         <div className="mt-4 text-sm text-purple-300">
-          Press spacebar to jump or click/tap the game area
+          Click / tap the game area to jump
         </div>
       </CardContent>
     </Card>
