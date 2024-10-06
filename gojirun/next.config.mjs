@@ -2,6 +2,7 @@ import path from 'path';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  swcMinify: true, // Enable SWC minification
   images: {
     remotePatterns: [
       {
