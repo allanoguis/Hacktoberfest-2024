@@ -2,11 +2,13 @@
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import gojiraImage from "@/app/images/gojirav3.svg";
+import obstacleImage from "@/app/images/tank.svg";
 
 const JUMP_HEIGHT = 350;
 const GAME_HEIGHT = 600;
 const GAME_WIDTH = 1000;
-const OBSTACLE_WIDTH = 20;
+const OBSTACLE_WIDTH = 100;
+const OBSTACLE_HEIGHT = 50;
 const GOJIRA_WIDTH = 150;
 const GOJIRA_HEIGHT = 150;
 const GAME_SPEED = 20;
@@ -16,25 +18,46 @@ export default function Engine() {
   const [gameStarted, setGameStarted] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [ground, setGround] = useState(GROUND);
-  const [obstacle, setObstacle] = useState(GAME_WIDTH);
+  const [obstacle, setObstacle] = useState(GAME_WIDTH); // Initial position of the obstacle
   const [score, setScore] = useState(0);
   const [jumping, setJumping] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const gojiraImgRef = useRef<HTMLImageElement | null>(null);
+  const obstacleImgRef = useRef<HTMLImageElement | null>(null);
   if (!gojiraImgRef.current) {
     gojiraImgRef.current = new Image();
-    gojiraImgRef.current.src = gojiraImage.src;
+    gojiraImgRef.current.src = gojiraImage.src; // Assign the source for the gojira image
   }
-  const gojiraImg = gojiraImgRef.current; // Use the ref for the image
+  if (!obstacleImgRef.current) {
+    obstacleImgRef.current = new Image(); // Create a new Image object for the obstacle
+    obstacleImgRef.current.src = obstacleImage.src; // Assign the source for the obstacle image
+  }
 
   const jump = useCallback(() => {
     if (!jumping && !gameOver) {
       setJumping(true);
-      setGround(JUMP_HEIGHT);
-      setTimeout(() => {
-        setGround(GROUND);
-        setJumping(false);
-      }, 300);
+      let jumpHeight = 0; // Track the current jump height
+      const jumpDuration = 300; // Total duration of the jump
+      const jumpInterval = 20; // Interval for updating the jump height
+
+      const jumpUp = setInterval(() => {
+        if (jumpHeight < JUMP_HEIGHT) {
+          jumpHeight += JUMP_HEIGHT / (jumpDuration / jumpInterval); // Increment jump height
+          setGround(jumpHeight); // Update ground position
+        } else {
+          clearInterval(jumpUp); // Stop jumping up
+          const fallDown = setInterval(() => {
+            if (jumpHeight > GROUND) {
+              jumpHeight -= JUMP_HEIGHT / (jumpDuration / jumpInterval); // Decrement jump height
+              setGround(jumpHeight); // Update ground position
+            } else {
+              clearInterval(fallDown); // Stop falling down
+              setJumping(false); // Reset jumping state
+              setGround(GROUND); // Ensure ground is reset
+            }
+          }, jumpInterval);
+        }
+      }, jumpInterval);
     }
   }, [jumping, gameOver]);
 
@@ -68,16 +91,26 @@ export default function Engine() {
 
       // Spawn Gojira
       context.drawImage(
-        gojiraImg,
+        gojiraImgRef.current,
         20,
-        GAME_HEIGHT - ground - GOJIRA_HEIGHT,
+        GAME_HEIGHT - (jumping ? JUMP_HEIGHT : ground) - GOJIRA_HEIGHT, // Use jumping state for Y position
         GOJIRA_WIDTH,
         GOJIRA_HEIGHT
       );
 
-      // Spawn obstacle
-      context.fillStyle = "pink"; // Color for obstacle
-      context.fillRect(obstacle, GAME_HEIGHT - 40, OBSTACLE_WIDTH, 40); // Adjust height as needed
+      // Ensure the obstacle image is loaded before drawing
+      if (obstacleImgRef.current) {
+        // Spawn obstacle
+        context.drawImage(
+          obstacleImgRef.current,
+          obstacle, // Use the current obstacle position
+          GAME_HEIGHT - OBSTACLE_HEIGHT, // Keep the obstacle at the ground level
+          OBSTACLE_WIDTH,
+          OBSTACLE_HEIGHT
+        );
+      } else {
+        console.error("Obstacle image not loaded");
+      }
     };
 
     let gameLoop: NodeJS.Timeout; // Declare gameLoop variable
@@ -86,9 +119,9 @@ export default function Engine() {
       gameLoop = setInterval(() => {
         setObstacle((prevLeft) => {
           if (prevLeft <= -OBSTACLE_WIDTH) {
-            return GAME_WIDTH;
+            return GAME_WIDTH; // Reset to GAME_WIDTH when it goes off-screen
           }
-          return prevLeft - GAME_SPEED;
+          return prevLeft - GAME_SPEED; // Move the obstacle left
         });
 
         setScore((prevScore) => prevScore + 1);
@@ -130,7 +163,20 @@ export default function Engine() {
     }
 
     return () => clearInterval(gameLoop); // Cleanup on component unmount
-  }, [gojiraImg, gameStarted, gameOver, obstacle, ground]);
+  }, [gameStarted, gameOver, obstacle, ground]);
+
+  useEffect(() => {
+    // Retrieve score from localStorage when the component mounts
+    const savedScore = localStorage.getItem("savedScore");
+    if (savedScore) {
+      setScore(Number(savedScore)); // Set the score if it exists
+    }
+  }, []); // Run only once on mount
+
+  useEffect(() => {
+    // Save the score to localStorage whenever it changes
+    localStorage.setItem("savedScore", score.toString());
+  }, [score]); // Run whenever score changes
 
   const handleStartGame = () => {
     setGameStarted(true);
