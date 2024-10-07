@@ -1,4 +1,3 @@
-// firebaseConfig.js
 import admin from 'firebase-admin';
 import serviceAccount from './key.json' assert { type: "json" };
 
