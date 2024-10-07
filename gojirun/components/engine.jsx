@@ -230,16 +230,61 @@ export default function Engine() {
     // Save the score to localStorage whenever it changes
     localStorage.setItem("savedScore", score.toString());
     if (gameOver) {
-      addReviewDetails();
+      saveGameFromFrontend();
     }
   }, [score]); // Run whenever score changes
 
 
-  const addReviewDetails = async () => {
-    
-    await saveGame(score);
-    console.log('score',score);
+  const saveGameFromFrontend = async () => {
+    try {
+      // Fetch the public IP address
+      const ipResponse = await fetch('https://api64.ipify.org?format=json');
+      const ipData = await ipResponse.json();
+      const ipAddress = ipData.ip;
+  
+      const currentTime = new Date();
+  
+      // Detect user device/browser info
+      const userAgent = navigator.userAgent;
+      const isBrave = !!navigator.brave; // Detect Brave browser
+      const isEdge = /Edg/.test(userAgent); // Detect Microsoft Edge
+      const isChrome = /Chrome/.test(userAgent) && !isEdge && !isBrave && !/OPR/.test(userAgent);
+      const isFirefox = /Firefox/.test(userAgent); 
+      const isSafari = /Safari/.test(userAgent) && !/Chrome/.test(userAgent); 
+      const isOpera = /OPR/.test(userAgent); 
+  
+      let browserName = 'Unknown Browser';
+      if (isBrave) {
+        browserName = 'Brave';
+      } else if (isEdge) {
+        browserName = 'Microsoft Edge';
+      } else if (isChrome) {
+        browserName = 'Chrome';
+      } else if (isFirefox) {
+        browserName = 'Firefox';
+      } else if (isSafari) {
+        browserName = 'Safari';
+      } else if (isOpera) {
+        browserName = 'Opera';
+      }
+  
+      // Call the saveGame API with extended payload
+      const data = {
+        score: score,
+        time: currentTime,
+        ipAddress: ipAddress,      
+        deviceType: browserName,   
+        userAgent: userAgent       
+      }
+      await saveGame(data);
+      console.log(data);
+  
+    } catch (error) {
+      console.error('Error fetching IP or saving game data:', error);
+    }
   };
+  
+  
 
   const handleStartGame = () => {
     setGameStarted(true);
