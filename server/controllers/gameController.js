@@ -16,9 +16,9 @@ export const saveGame = async (req, res) => {
     // });
 
     //await game.save();
-    console.log(time,score);
+    console.log("time",time,"score",score);
 
-    res.status(201).json({ message: 'Game saved successfully', game });
+    res.status(201).json({ message: 'Game saved successfully'});
   } catch (error) {
     console.error('Error in saveGame:', error);
     res.status(500).json({ message: 'Error saving game' });

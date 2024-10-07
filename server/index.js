@@ -1,6 +1,6 @@
 import express from 'express';
 // import Connection from './databases/db.js';
-// import Routes from './routes/route.js';
+import Routes from './routes/route.js';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import bodyParser from 'body-parser';
@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(cors());
 
-// app.use('/', Routes);
+app.use('/', Routes);
 
 const PORT = 8000;
 // const username = process.env.MONGODB_USERNAME;

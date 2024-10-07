@@ -4,6 +4,6 @@ import { saveGame } from '../controllers/gameController.js';
 const router = express.Router();
 
 
-router.get('/api/savegame', leaderBoardController);
+router.post('/api/savegame', saveGame);
 
 export default router;
