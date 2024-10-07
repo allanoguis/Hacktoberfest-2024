@@ -196,20 +196,15 @@ export default function Engine() {
       }
   
       // Call the saveGame API with extended payload
-      const d = {
+      const data = {
         score: score,
         time: currentTime,
         ipAddress: ipAddress,      
         deviceType: browserName,   
         userAgent: userAgent       
       }
-      await saveGame(d);
-  
-      // console.log('Score:', score);
-      // console.log('IP Address:', ipAddress);
-      // console.log('Browser:', browserName);
-      // console.log('currentTime:', currentTime);
-      console.log(d);
+      await saveGame(data);
+      console.log(data);
   
     } catch (error) {
       console.error('Error fetching IP or saving game data:', error);
