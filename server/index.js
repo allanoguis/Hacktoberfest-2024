@@ -2,20 +2,10 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import Routes from './routes/route.js';  
+import Routes from './routes/route.js';
+import './firebaseConfig.js';  // Import Firebase configuration
 
-// Import Firebase Admin SDK using ESM
-import admin from 'firebase-admin';
-import credentials from './key.json' assert { type: 'json' };
-
-// Initialize Firebase Admin SDK
-admin.initializeApp({
-  credential: admin.credential.cert(credentials)
-});
-
-const db = admin.firestore();
-
-dotenv.config();
+dotenv.config(); 
 
 const app = express();
 const PORT = process.env.PORT || 8000; 

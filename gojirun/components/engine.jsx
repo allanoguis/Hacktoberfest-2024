@@ -169,7 +169,7 @@ export default function Engine() {
       const ipData = await ipResponse.json();
       const ipAddress = ipData.ip;
   
-      const currentTime = new Date().toISOString();
+      const currentTime = new Date();
   
       // Detect user device/browser info
       const userAgent = navigator.userAgent;
@@ -196,18 +196,20 @@ export default function Engine() {
       }
   
       // Call the saveGame API with extended payload
-      await saveGame({
+      const d = {
         score: score,
         time: currentTime,
         ipAddress: ipAddress,      
         deviceType: browserName,   
         userAgent: userAgent       
-      });
+      }
+      await saveGame(d);
   
-      console.log('Score:', score);
-      console.log('IP Address:', ipAddress);
-      console.log('Browser:', browserName);
-      console.log('User Agent:', userAgent);
+      // console.log('Score:', score);
+      // console.log('IP Address:', ipAddress);
+      // console.log('Browser:', browserName);
+      // console.log('currentTime:', currentTime);
+      console.log(d);
   
     } catch (error) {
       console.error('Error fetching IP or saving game data:', error);
