@@ -66,16 +66,6 @@ export default function Engine() {
 
   const gameLoopRef = useRef(null); // Ref to store the game loop
 
-  const handleStartGame = () => {
-    setGameStarted(true);
-    setGameOver(false);
-    setScore(0);
-    setObstacle(GAME_WIDTH); // Reset obstacle position when the game starts
-    setCloud1(GAME_WIDTH); // Reset cloud1 position when the game starts 
-    setCloud2(GAME_WIDTH);
-    setCloud3(GAME_WIDTH);
-  };
-
   const loadImage = (ref, src) => {
     if (typeof Image !== "undefined" && !ref.current) {
       ref.current = new Image();
@@ -89,7 +79,7 @@ export default function Engine() {
   loadImage(cloud1ImgRef, cloud1Image.src); // Load cloud1 image
   loadImage(cloud2ImgRef, cloud2Image.src); // Load cloud 2image
   loadImage(cloud3ImgRef, cloud3Image.src); // Load cloud3
-
+  
   const jump = useCallback(() => {
     if (!jumping && !gameOver) {
       setJumping(true);
@@ -256,6 +246,9 @@ export default function Engine() {
     setGameOver(false);
     setScore(0);
     setObstacle(GAME_WIDTH); // Reset obstacle position when the game starts
+    setCloud1(GAME_WIDTH); // Reset cloud1 position when the game starts 
+    setCloud2(GAME_WIDTH);
+    setCloud3(GAME_WIDTH);
   };
 
   const GameOverMessage = () => (
