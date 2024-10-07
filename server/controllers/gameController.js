@@ -2,7 +2,7 @@
 // import User from '../models/User.js';
 
 export const saveGame = async (req, res) => {
-  //const { time, score } = req.body;
+  const { time, score } = req.body;
 
   try {
     //const user = await User.findOne({ email });
@@ -17,7 +17,7 @@ export const saveGame = async (req, res) => {
 
     //await game.save();
     //console.log("time",time,"score",score);
-    console.log(req.body);
+    console.log(score);
 
     res.status(201).json({ message: 'Game saved successfully'});
   } catch (error) {

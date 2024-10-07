@@ -169,17 +169,16 @@ export default function Engine() {
       const ipData = await ipResponse.json();
       const ipAddress = ipData.ip;
   
-      // Get the current time
       const currentTime = new Date().toISOString();
   
       // Detect user device/browser info
       const userAgent = navigator.userAgent;
       const isBrave = !!navigator.brave; // Detect Brave browser
       const isEdge = /Edg/.test(userAgent); // Detect Microsoft Edge
-      const isChrome = /Chrome/.test(userAgent) && !isEdge && !isBrave && !/OPR/.test(userAgent); // Detect Chrome
-      const isFirefox = /Firefox/.test(userAgent); // Detect Firefox
-      const isSafari = /Safari/.test(userAgent) && !/Chrome/.test(userAgent); // Detect Safari
-      const isOpera = /OPR/.test(userAgent); // Detect Opera
+      const isChrome = /Chrome/.test(userAgent) && !isEdge && !isBrave && !/OPR/.test(userAgent);
+      const isFirefox = /Firefox/.test(userAgent); 
+      const isSafari = /Safari/.test(userAgent) && !/Chrome/.test(userAgent); 
+      const isOpera = /OPR/.test(userAgent); 
   
       let browserName = 'Unknown Browser';
       if (isBrave) {
@@ -200,9 +199,9 @@ export default function Engine() {
       await saveGame({
         score: score,
         time: currentTime,
-        ipAddress: ipAddress,      // Public IP address
-        deviceType: browserName,   // Browser name
-        userAgent: userAgent       // Full user-agent string
+        ipAddress: ipAddress,      
+        deviceType: browserName,   
+        userAgent: userAgent       
       });
   
       console.log('Score:', score);
