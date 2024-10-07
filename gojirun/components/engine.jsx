@@ -3,44 +3,83 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import gojiraImage from "@/app/images/gojirav3.svg";
 import obstacleImage from "@/app/images/tank.svg";
+
+import cloud1Image from "@/app/images/cloud1.png";
+import cloud2Image from "@/app/images/cloud2.png";
+import cloud3Image from "@/app/images/cloud3.png";
+
 import { saveGame } from '../api/saveGameAPI/route';
+
 
 
 const GAME_HEIGHT = 600;
 const GAME_WIDTH = 1000;
-const OBSTACLE_WIDTH = 100;
-const OBSTACLE_HEIGHT = 50;
+const GAME_SPEED = 10;
+
 const GOJIRA_WIDTH = 150;
 const GOJIRA_HEIGHT = 150;
-const GAME_SPEED = 10;
 const GROUND = 0; // Gojira's feet position
+
 const SPAWN_POINT = 20; // Set spawn point for Gojira
 const JUMP_HEIGHT = 350;
 const jumpDuration = 260; // Total duration of the jump
 const jumpInterval = 20; // Interval for updating the jump height
+
+const OBSTACLE_WIDTH = 100;
+const OBSTACLE_HEIGHT = 50;
+
+const CLOUD1_WIDTH = 150; // Cloud1 width
+const CLOUD1_HEIGHT = 50; // Cloud1 height
+const CLOUD1_SPEED = 2.74; // Cloud1 speed
+const CLOUD1_Y = GAME_HEIGHT / 2.5 - CLOUD1_HEIGHT;
+// console.log(CLOUD1_Y);
+
+const CLOUD2_WIDTH = 280;
+const CLOUD2_HEIGHT = 54;
+const CLOUD2_SPEED = 2;
+const CLOUD2_Y = GAME_HEIGHT / 5 - CLOUD2_HEIGHT;
+// console.log(CLOUD2_Y);
+
+const CLOUD3_WIDTH = 170;
+const CLOUD3_HEIGHT = 60;
+const CLOUD3_SPEED = 1;
+const CLOUD3_Y = GAME_HEIGHT / 3 - CLOUD3_HEIGHT;
+// console.log(CLOUD3_Y);
 
 export default function Engine() {
   const [gameStarted, setGameStarted] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [ground, setGround] = useState(GROUND);
   const [obstacle, setObstacle] = useState(GAME_WIDTH); // Spawn point of the obstacle
+  const [cloud1, setCloud1] = useState(GAME_WIDTH); // Spawn point of the cloud1
+  const [cloud2, setCloud2] = useState(GAME_WIDTH); // Spawn point of the cloud2
+  const [cloud3, setCloud3] = useState(GAME_WIDTH); // cloud3
   const [score, setScore] = useState(0);
   const [jumping, setJumping] = useState(false);
+
   const canvasRef = useRef(null);
   const gojiraImgRef = useRef(null);
   const obstacleImgRef = useRef(null);
+  const cloud1ImgRef = useRef(null);
+  const cloud2ImgRef = useRef(null);
+  const cloud3ImgRef = useRef(null);
+
   const gameLoopRef = useRef(null); // Ref to store the game loop
 
   const loadImage = (ref, src) => {
     if (typeof Image !== "undefined" && !ref.current) {
       ref.current = new Image();
       ref.current.src = src;
+      ref.current.onload = () => console.log(`${src} loaded successfully`); // check if the clouds are loaded
     }
   };
 
   loadImage(gojiraImgRef, gojiraImage.src); // Load Gojira image
   loadImage(obstacleImgRef, obstacleImage.src); // Load obstacle image
-
+  loadImage(cloud1ImgRef, cloud1Image.src); // Load cloud1 image
+  loadImage(cloud2ImgRef, cloud2Image.src); // Load cloud 2image
+  loadImage(cloud3ImgRef, cloud3Image.src); // Load cloud3
+  
   const jump = useCallback(() => {
     if (!jumping && !gameOver) {
       setJumping(true);
@@ -88,6 +127,18 @@ export default function Engine() {
     if (obstacleImgRef.current) {
       context.drawImage(obstacleImgRef.current, obstacle, GAME_HEIGHT - OBSTACLE_HEIGHT, OBSTACLE_WIDTH, OBSTACLE_HEIGHT);
     }
+    if (cloud1ImgRef.current) {
+      context.drawImage(cloud1ImgRef.current, cloud1, CLOUD1_Y, CLOUD1_WIDTH, CLOUD1_HEIGHT); // Draw cloud1
+      // console.log(`Drawing cloud at position (x: ${cloud1}, y: ${GAME_HEIGHT / 3 - CLOUD1_HEIGHT})`); // Log cloud position
+    }
+    if (cloud2ImgRef.current) {
+      context.drawImage(cloud2ImgRef.current, cloud2, CLOUD2_Y, CLOUD2_WIDTH, CLOUD2_HEIGHT); 
+    }
+    if (cloud3ImgRef.current) {
+      context.drawImage(cloud3ImgRef.current, cloud3, CLOUD3_Y, CLOUD3_WIDTH, CLOUD3_HEIGHT); 
+    } else {
+      console.error({error}); 
+    }
   };
 
   const isColliding = () => {
@@ -126,6 +177,27 @@ export default function Engine() {
         return prevLeft - GAME_SPEED;
       });
 
+      setCloud1((prevLeft) => {
+        if (prevLeft <= -CLOUD1_WIDTH) {
+          return GAME_WIDTH;
+        }
+        return prevLeft - CLOUD1_SPEED;
+      });
+
+      setCloud2((prevLeft) => {
+        if (prevLeft <= -CLOUD2_WIDTH) {
+          return GAME_WIDTH;
+        }
+        return prevLeft - CLOUD2_SPEED;
+      });
+
+      setCloud3((prevLeft) => {
+        if (prevLeft <= -CLOUD3_WIDTH) {
+          return GAME_WIDTH;
+        }
+        return prevLeft - CLOUD3_SPEED;
+      });
+
       setScore((prevScore) => prevScore + 1);
 
       if (isColliding()) {
@@ -152,7 +224,7 @@ export default function Engine() {
     if (savedScore) {
       setScore(Number(savedScore)); // Set the score if it exists
     }
-  }, []); // Run only once on mount
+  }, []); 
 
   useEffect(() => {
     // Save the score to localStorage whenever it changes
@@ -161,6 +233,7 @@ export default function Engine() {
       saveGameFromFrontend();
     }
   }, [score]); // Run whenever score changes
+
 
   const saveGameFromFrontend = async () => {
     try {
@@ -218,6 +291,9 @@ export default function Engine() {
     setGameOver(false);
     setScore(0);
     setObstacle(GAME_WIDTH); // Reset obstacle position when the game starts
+    setCloud1(GAME_WIDTH); // Reset cloud1 position when the game starts 
+    setCloud2(GAME_WIDTH);
+    setCloud3(GAME_WIDTH);
   };
 
   const GameOverMessage = () => (
@@ -240,7 +316,7 @@ export default function Engine() {
   return (
     <div className="flex flex-col relative w-full p-11 text-primary justify-center items-center">
       <span className="absolute top-1 left-500">Score: {score}</span>
-      <canvas ref={canvasRef} id="gameCanvas" width={GAME_WIDTH} height={GAME_HEIGHT} className="border border-purple-200 bg-purple-200/50" onClick={jump} />
+      <canvas ref={canvasRef} id="gameCanvas" width={GAME_WIDTH} height={GAME_HEIGHT} className="border border-white bg-gradient-to-b from-blue-400 to-orange-400" onClick={jump} />
       <div className="flex flex-col absolute bottom-50 justify-center items-center">
         {gameOver && <GameOverMessage />}
         {!gameStarted && <StartGameButton onClick={handleStartGame} isGameOver={gameOver} />}
