@@ -3,9 +3,14 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import gojiraImage from "@/app/images/gojirav3.svg";
 import obstacleImage from "@/app/images/tank.svg";
+
 import cloud1Image from "@/app/images/cloud1.png";
 import cloud2Image from "@/app/images/cloud2.png";
 import cloud3Image from "@/app/images/cloud3.png";
+
+import { saveGame } from '../api/saveGameAPI/route';
+
+
 
 const GAME_HEIGHT = 600;
 const GAME_WIDTH = 1000;
@@ -234,7 +239,24 @@ export default function Engine() {
   useEffect(() => {
     // Save the score to localStorage whenever it changes
     localStorage.setItem("savedScore", score.toString());
+    if (gameOver) {
+      addReviewDetails();
+    }
   }, [score]); // Run whenever score changes
+
+
+  const addReviewDetails = async () => {
+    
+    await saveGame(score);
+    console.log('score',score);
+  };
+
+  const handleStartGame = () => {
+    setGameStarted(true);
+    setGameOver(false);
+    setScore(0);
+    setObstacle(GAME_WIDTH); // Reset obstacle position when the game starts
+  };
 
   const GameOverMessage = () => (
     <span className="mt-5 text-2xl text-primary font-semibold ">
