@@ -71,23 +71,6 @@ export default function Engine() {
     setCloud3(GAME_WIDTH);
   };
 
-  const GameOverMessage = () => (
-    <span className="mt-5 text-2xl text-primary font-semibold ">
-      G A M E O V E R
-    </span>
-  );
-
-  const StartGameButton = ({ onClick, isGameOver }) => (
-    <span className="flex flex-col h-full left-500 mt-5">
-      <button
-        onClick={onClick}
-        className=" text-primary font-semibold animate-pulse antialiased"
-      >
-        {isGameOver ? "R E S T A R T" : "S T A R T   G A M E"}
-      </button>
-    </span>
-  );
-
   const loadImage = (ref, src) => {
     if (typeof Image !== "undefined" && !ref.current) {
       ref.current = new Image();
@@ -253,12 +236,27 @@ export default function Engine() {
     localStorage.setItem("savedScore", score.toString());
   }, [score]); // Run whenever score changes
 
-  
+  const GameOverMessage = () => (
+    <span className="mt-5 text-2xl text-primary font-semibold ">
+      G A M E O V E R
+    </span>
+  );
+
+  const StartGameButton = ({ onClick, isGameOver }) => (
+    <span className="flex flex-col h-full left-500 mt-5">
+      <button
+        onClick={onClick}
+        className=" text-primary font-semibold animate-pulse antialiased"
+      >
+        {isGameOver ? "R E S T A R T" : "S T A R T   G A M E"}
+      </button>
+    </span>
+  );
 
   return (
     <div className="flex flex-col relative w-full p-11 text-primary justify-center items-center">
       <span className="absolute top-1 left-500">Score: {score}</span>
-      <canvas ref={canvasRef} id="gameCanvas" width={GAME_WIDTH} height={GAME_HEIGHT} className="border border-white bg-gradient-to-t from-orange-400/90 to-blue-400/70" onClick={jump} />
+      <canvas ref={canvasRef} id="gameCanvas" width={GAME_WIDTH} height={GAME_HEIGHT} className="border border-white bg-gradient-to-b from-blue-400 to-orange-400" onClick={jump} />
       <div className="flex flex-col absolute bottom-50 justify-center items-center">
         {gameOver && <GameOverMessage />}
         {!gameStarted && <StartGameButton onClick={handleStartGame} isGameOver={gameOver} />}
