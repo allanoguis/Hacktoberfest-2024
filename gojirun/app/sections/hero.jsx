@@ -8,7 +8,7 @@ export default function Hero() {
 
       {/* Content */}
       <div className="relative z-10 text-center">
-        <h1 className="text-5xl font-extrabold mb-4 font-['Press_Start_2P'] uppercase bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600 p-4 rounded-lg">
+        <h1 className="text-5xl mt-5 font-extrabold mb-4 font-['Press_Start_2P'] uppercase bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600 p-4 rounded-lg">
           Welcome to Gojirun!
         </h1>
 

@@ -183,9 +183,16 @@ export default function Engine() {
   }, []); // Run only once on mount
 
   useEffect(() => {
-    // Save the score to localStorage whenever it changes
-    localStorage.setItem("savedScore", score.toString());
+    // Retrieve the current scores array from localStorage or initialize an empty array
+    const savedScores = JSON.parse(localStorage.getItem("savedScores")) || [];
+  
+    // Add the new score to the array
+    savedScores.push(score);
+  
+    // Save the updated array back to localStorage
+    localStorage.setItem("savedScores", JSON.stringify(savedScores));
   }, [score]); // Run whenever score changes
+  
 
   const handleStartGame = () => {
     setGameStarted(true);
