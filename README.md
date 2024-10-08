@@ -23,7 +23,7 @@ We’d love to hear your thoughts! If you have any ideas, feedback, or even just
 
 ## Contributors
 <a href="https://github.com/allanoguis/Hacktoberfest-2024/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=allanoguis/Hacktoberfest-2024" />
+  <img src="https://contrib.rocks/image?repo=allanoguis/Hacktoberfest-2024" max={100} anon={1}/>
 </a>
 
 ## License
