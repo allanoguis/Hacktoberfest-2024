@@ -1,8 +1,12 @@
-# Open Source Project for Hacktoberfest 2024
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]](LICENSE)
 
 ![Hactoberfest 2024](hacktoberfest.jpg)
 
-## Hacktoberfest 2024
+# Hacktoberfest 2024
 
 Hacktoberfest is all about celebrating open source, giving back to the community, and growing your coding skills.
 
@@ -46,15 +50,7 @@ We’d love to hear your thoughts! If you have any ideas, feedback, or even just
 
 ---
 
-## Collaborators
 
-<!-- readme: collaborators -start -->
-<!-- readme: collaborators -end -->
-
-## Contributors
-
-<!-- readme: contributors -start -->
-<!-- readme: contributors -end -->
 
 ## License
 
