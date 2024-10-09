@@ -70,7 +70,7 @@ export default function Engine() {
     if (typeof Image !== "undefined" && !ref.current) {
       ref.current = new Image();
       ref.current.src = src;
-      ref.current.onload = () => console.log(`${src} loaded successfully`); // check if the clouds are loaded
+      ref.current.onload = () => setScore(0); // check if the assets are loaded then reset the score
     }
   };
 
