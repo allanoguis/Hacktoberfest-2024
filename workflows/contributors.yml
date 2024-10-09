@@ -19,6 +19,9 @@ jobs:
 
     - name: Update README with contributors
       uses: akhilmhdh/contributors-readme-action@v2.3.10
+
+    - name: Use GitHub Token
+      run: echo "Using GitHub Token"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
