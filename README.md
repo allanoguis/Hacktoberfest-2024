@@ -1,8 +1,4 @@
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]](LICENSE)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/t/:user/allanoguis%2Fhacktoberfest-2024)
 
 ![Hactoberfest 2024](hacktoberfest.jpg)
 
