@@ -1,0 +1,21 @@
+name: Update README with Contributors
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Update README with contributors
+      uses: akhilmhdh/contributors-readme-action@v2.3.10
