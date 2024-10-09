@@ -3,15 +3,12 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import gojiraImage from "@/app/images/gojirav3.svg";
 import obstacleImage from "@/app/images/tank.svg";
-
 import cloud1Image from "@/app/images/cloud1.png";
 import cloud2Image from "@/app/images/cloud2.png";
 import cloud3Image from "@/app/images/cloud3.png";
-
 import { saveGame } from '../api/saveGameAPI/route';
 
-
-
+// Constants
 const GAME_HEIGHT = 600;
 const GAME_WIDTH = 1000;
 const GAME_SPEED = 10;
@@ -32,21 +29,19 @@ const CLOUD1_WIDTH = 150; // Cloud1 width
 const CLOUD1_HEIGHT = 50; // Cloud1 height
 const CLOUD1_SPEED = 2.74; // Cloud1 speed
 const CLOUD1_Y = GAME_HEIGHT / 2.5 - CLOUD1_HEIGHT;
-// console.log(CLOUD1_Y);
 
 const CLOUD2_WIDTH = 280;
 const CLOUD2_HEIGHT = 54;
 const CLOUD2_SPEED = 2;
 const CLOUD2_Y = GAME_HEIGHT / 5 - CLOUD2_HEIGHT;
-// console.log(CLOUD2_Y);
 
 const CLOUD3_WIDTH = 170;
 const CLOUD3_HEIGHT = 60;
 const CLOUD3_SPEED = 1;
 const CLOUD3_Y = GAME_HEIGHT / 3 - CLOUD3_HEIGHT;
-// console.log(CLOUD3_Y);
 
 export default function Engine() {
+  // State variables
   const [gameStarted, setGameStarted] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [ground, setGround] = useState(GROUND);
@@ -57,29 +52,16 @@ export default function Engine() {
   const [score, setScore] = useState(0);
   const [jumping, setJumping] = useState(false);
 
+  // Refs
   const canvasRef = useRef(null);
   const gojiraImgRef = useRef(null);
   const obstacleImgRef = useRef(null);
   const cloud1ImgRef = useRef(null);
   const cloud2ImgRef = useRef(null);
   const cloud3ImgRef = useRef(null);
-
   const gameLoopRef = useRef(null); // Ref to store the game loop
 
-  const loadImage = (ref, src) => {
-    if (typeof Image !== "undefined" && !ref.current) {
-      ref.current = new Image();
-      ref.current.src = src;
-      ref.current.onload = () => setScore(0); // check if the assets are loaded then reset the score
-    }
-  };
-
-  loadImage(gojiraImgRef, gojiraImage.src); // Load Gojira image
-  loadImage(obstacleImgRef, obstacleImage.src); // Load obstacle image
-  loadImage(cloud1ImgRef, cloud1Image.src); // Load cloud1 image
-  loadImage(cloud2ImgRef, cloud2Image.src); // Load cloud 2image
-  loadImage(cloud3ImgRef, cloud3Image.src); // Load cloud3
-  
+  // Jump function
   const jump = useCallback(() => {
     if (!jumping && !gameOver) {
       setJumping(true);
@@ -106,6 +88,7 @@ export default function Engine() {
     }
   }, [jumping, gameOver]);
 
+  // Handle key press
   const handleKeyPress = useCallback((event) => {
     if (!gameStarted) {
       setGameStarted(true);
@@ -114,60 +97,73 @@ export default function Engine() {
     } else {
       jump();
     }
+  
   }, [gameStarted, jump]);
-
   useEffect(() => {
     document.addEventListener("keydown", handleKeyPress);
     return () => document.removeEventListener("keydown", handleKeyPress);
   }, [handleKeyPress]);
 
-  const draw = (context) => {
-    context.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
-    context.drawImage(gojiraImgRef.current, SPAWN_POINT, GAME_HEIGHT - (jumping ? JUMP_HEIGHT : ground) - GOJIRA_HEIGHT, GOJIRA_WIDTH, GOJIRA_HEIGHT);
-    if (obstacleImgRef.current) {
-      context.drawImage(obstacleImgRef.current, obstacle, GAME_HEIGHT - OBSTACLE_HEIGHT, OBSTACLE_WIDTH, OBSTACLE_HEIGHT);
-    }
-    if (cloud1ImgRef.current) {
-      context.drawImage(cloud1ImgRef.current, cloud1, CLOUD1_Y, CLOUD1_WIDTH, CLOUD1_HEIGHT); // Draw cloud1
-      // console.log(`Drawing cloud at position (x: ${cloud1}, y: ${GAME_HEIGHT / 3 - CLOUD1_HEIGHT})`); // Log cloud position
-    }
-    if (cloud2ImgRef.current) {
-      context.drawImage(cloud2ImgRef.current, cloud2, CLOUD2_Y, CLOUD2_WIDTH, CLOUD2_HEIGHT); 
-    }
-    if (cloud3ImgRef.current) {
-      context.drawImage(cloud3ImgRef.current, cloud3, CLOUD3_Y, CLOUD3_WIDTH, CLOUD3_HEIGHT); 
-    } else {
-      console.error({error}); 
-    }
-  };
-
-  const isColliding = () => {
-    const gojiraRect = {
-      left: SPAWN_POINT,
-      right: SPAWN_POINT + GOJIRA_WIDTH,
-      top: GAME_HEIGHT - (jumping ? JUMP_HEIGHT : ground) - GOJIRA_HEIGHT,
-      bottom: GAME_HEIGHT - (jumping ? JUMP_HEIGHT : ground),
-    };
-
-    const obstacleRect = {
-      left: obstacle,
-      right: obstacle + OBSTACLE_WIDTH,
-      top: GAME_HEIGHT - OBSTACLE_HEIGHT,
-      bottom: GAME_HEIGHT,
-    };
-
-    return !(
-      gojiraRect.right < obstacleRect.left ||
-      gojiraRect.left > obstacleRect.right ||
-      gojiraRect.bottom < obstacleRect.top ||
-      gojiraRect.top > obstacleRect.bottom
-    );
-  };
-
+  // Effects
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas?.getContext("2d");
+    
     if (!context) return;
+
+    const loadImage = (ref, src) => {
+      if (typeof Image !== "undefined" && !ref.current) {
+        ref.current = new Image();
+        ref.current.src = src;
+        ref.current.onload = () => setScore(0); // check if the assets are loaded then reset the score
+      }
+    };
+
+    loadImage(gojiraImgRef, gojiraImage.src); // Load Gojira image
+    loadImage(obstacleImgRef, obstacleImage.src); // Load obstacle image
+    loadImage(cloud1ImgRef, cloud1Image.src); // Load cloud1 image
+    loadImage(cloud2ImgRef, cloud2Image.src); // Load cloud 2 image
+    loadImage(cloud3ImgRef, cloud3Image.src); // Load cloud3
+
+    const draw = (context) => {
+      context.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+      context.drawImage(gojiraImgRef.current, SPAWN_POINT, GAME_HEIGHT - (jumping ? JUMP_HEIGHT : ground) - GOJIRA_HEIGHT, GOJIRA_WIDTH, GOJIRA_HEIGHT);
+      if (obstacleImgRef.current) {
+        context.drawImage(obstacleImgRef.current, obstacle, GAME_HEIGHT - OBSTACLE_HEIGHT, OBSTACLE_WIDTH, OBSTACLE_HEIGHT);
+      }
+      if (cloud1ImgRef.current) {
+        context.drawImage(cloud1ImgRef.current, cloud1, CLOUD1_Y, CLOUD1_WIDTH, CLOUD1_HEIGHT); // Draw cloud1
+      }
+      if (cloud2ImgRef.current) {
+        context.drawImage(cloud2ImgRef.current, cloud2, CLOUD2_Y, CLOUD2_WIDTH, CLOUD2_HEIGHT); 
+      }
+      if (cloud3ImgRef.current) {
+        context.drawImage(cloud3ImgRef.current, cloud3, CLOUD3_Y, CLOUD3_WIDTH, CLOUD3_HEIGHT); 
+      }
+    };
+
+    const isColliding = () => {
+      const gojiraRect = {
+        left: SPAWN_POINT,
+        right: SPAWN_POINT + GOJIRA_WIDTH,
+        top: GAME_HEIGHT - (jumping ? JUMP_HEIGHT : ground) - GOJIRA_HEIGHT,
+        bottom: GAME_HEIGHT - (jumping ? JUMP_HEIGHT : ground),
+      };
+
+      const obstacleRect = {
+        left: obstacle,
+        right: obstacle + OBSTACLE_WIDTH,
+        top: GAME_HEIGHT - OBSTACLE_HEIGHT,
+        bottom: GAME_HEIGHT,
+      };
+
+      return !(
+        gojiraRect.right < obstacleRect.left ||
+        gojiraRect.left > obstacleRect.right ||
+        gojiraRect.bottom < obstacleRect.top ||
+        gojiraRect.top > obstacleRect.bottom
+      );
+    };
 
     const gameLoop = () => {
       setObstacle((prevLeft) => {
@@ -234,7 +230,6 @@ export default function Engine() {
     }
   }, [score]); // Run whenever score changes
 
-
   const saveGameFromFrontend = async () => {
     try {
       // Fetch the public IP address
@@ -283,18 +278,6 @@ export default function Engine() {
       console.error('Error fetching IP or saving game data:', error);
     }
   };
-  
-  
-
-  const handleStartGame = () => {
-    setGameStarted(true);
-    setGameOver(false);
-    setScore(0);
-    setObstacle(GAME_WIDTH); // Reset obstacle position when the game starts
-    setCloud1(GAME_WIDTH); // Reset cloud1 position when the game starts 
-    setCloud2(GAME_WIDTH);
-    setCloud3(GAME_WIDTH);
-  };
 
   const GameOverMessage = () => (
     <span className="mt-5 text-2xl text-primary font-semibold ">
@@ -313,6 +296,15 @@ export default function Engine() {
     </span>
   );
 
+  const handleStartGame = () => {
+    setGameStarted(true);
+    setGameOver(false);
+    setScore(0);
+    setObstacle(GAME_WIDTH); // Reset obstacle position when the game starts
+    setCloud1(GAME_WIDTH); // Reset cloud1 position when the game starts 
+    setCloud2(GAME_WIDTH);
+    setCloud3(GAME_WIDTH);
+  };
   return (
     <div className="flex flex-col relative w-full p-11 text-primary justify-center items-center">
       <span className="absolute top-1 left-500">Score: {score}</span>
