@@ -3,8 +3,17 @@ import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { Moon, Sun, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
+import {
+  ClerkProvider,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
 import { HighScoreModal } from "@/components/ui/modal";
 import HighScoreButton from "@/components/ui/modal";
+
 
 export default function Navigation() {
   const [mounted, setMounted] = useState(false);
@@ -39,9 +48,45 @@ export default function Navigation() {
               <User className="inline-block mr-2 h-4 w-4" />
               Profile
             </Button>
+
+
+            {/* High Scores Button */}
+            <Button
+              variant="ghost"
+              className="text-purple-300 hover:text-white hover:bg-purple-500 transition-all duration-300"
+            >
+              <Trophy className="inline-block mr-2 h-4 w-4" />
+              High Scores
+            </Button>
+
+            {/* Settings Button */}
+            <Button
+              variant="ghost"
+              className="text-purple-300 hover:text-white hover:bg-purple-500 transition-all duration-300"
+            >
+              <Settings className="inline-block mr-2 h-4 w-4" />
+              Settings
+            </Button>
+
+            {/* Help Button */}
+            <Button
+              variant="ghost"
+              className="text-purple-300 hover:text-white hover:bg-purple-500 transition-all duration-300"
+            >
+              <HelpCircle className="inline-block mr-2 h-4 w-4" />
+              Help
+            </Button>
+            <SignedOut>
+              <SignInButton />
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+
             {/* High Scores Button */}
             <HighScoreModal />
             <HighScoreButton />
+
 
             {/* Theme Toggle Button */}
             <Button
