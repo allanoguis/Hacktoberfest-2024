@@ -20,7 +20,7 @@
     "clsx": "^2.1.1",
     "framer-motion": "^11.9.0",
     "lucide-react": "^0.447.0",
-    "next": "^15.0.0-canary.181",
+    "next": "^14.2.15",
     "next-themes": "^0.3.0",
     "react": ">= 18.2.0",
     "react-dom": ">= 18.2.0",
