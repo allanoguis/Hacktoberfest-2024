@@ -1,6 +1,7 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -22,11 +23,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html suppressHydrationWarning>
-      <head />
-      <body>
-        <ThemeProvider attribute="class">{children}</ThemeProvider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html suppressHydrationWarning>
+        <head />
+        <body>
+          <ThemeProvider attribute="class">{children}</ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
