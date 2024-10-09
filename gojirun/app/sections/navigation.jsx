@@ -1,9 +1,9 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
-import { Moon, Sun, User, Trophy, HelpCircle, Settings } from "lucide-react";
+import { Moon, Sun, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
 import {
   ClerkProvider,
   SignInButton,
@@ -11,6 +11,9 @@ import {
   SignedOut,
   UserButton,
 } from "@clerk/nextjs";
+import { HighScoreModal } from "@/components/ui/modal";
+import HighScoreButton from "@/components/ui/modal";
+
 
 export default function Navigation() {
   const [mounted, setMounted] = useState(false);
@@ -46,6 +49,7 @@ export default function Navigation() {
               Profile
             </Button>
 
+
             {/* High Scores Button */}
             <Button
               variant="ghost"
@@ -79,14 +83,24 @@ export default function Navigation() {
               <UserButton />
             </SignedIn>
 
+            {/* High Scores Button */}
+            <HighScoreModal />
+            <HighScoreButton />
+
+
             {/* Theme Toggle Button */}
             <Button
               variant="ghost"
               className="text-purple-300 hover:text-white hover:bg-purple-500 transition-all duration-300"
               onClick={() => setTheme(theme === "light" ? "dark" : "light")}
             >
-              <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-              <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+              <div className="relative h-[1.2rem] w-[1.2rem]">
+                {theme === "light" ? (
+                  <Sun className="absolute h-full w-full transition-all" />
+                ) : (
+                  <Moon className="absolute h-full w-full transition-all" />
+                )}
+              </div>
               <span className="sr-only">Toggle theme</span>
             </Button>
           </div>

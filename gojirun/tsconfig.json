@@ -26,13 +26,16 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "target": "ES2017"
   },
   "include": [
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "components/ui/button.jsx",
+    "components/ui/card.jsx"
   ],
   "exclude": [
     "node_modules"
