@@ -1,4 +1,4 @@
-![GitHub commit activity](https://img.shields.io/github/commit-activity/t/:user/allanoguis%2Fhacktoberfest-2024)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/t/allanoguis/hacktoberfest-2024) ![GitHub contributors](https://img.shields.io/github/contributors/allanoguis/hacktoberfest-2024) ![GitHub repo size](https://img.shields.io/github/repo-size/allanoguis/hacktoberfest-2024) ![GitHub Repo stars](https://img.shields.io/github/stars/allanoguis/hacktoberfest-2024) ![GitHub forks](https://img.shields.io/github/forks/allanoguis/hacktoberfest-2024)
 
 ![Hactoberfest 2024](hacktoberfest.jpg)
 
