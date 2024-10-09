@@ -44,6 +44,13 @@ For more information on syncing forks, read this article from GitHub.
 
 We’d love to hear your thoughts! If you have any ideas, feedback, or even just want to let us know how we’re doing, feel free to open an issue or drop us a message. Your feedback is greatly appreciated and helps improve the project!
 
+---
+
+## Collaborators
+
+<!-- readme: collaborators -start -->
+<!-- readme: collaborators -end -->
+
 ## Contributors
 
 <!-- readme: contributors -start -->
