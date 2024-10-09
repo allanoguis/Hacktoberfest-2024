@@ -8,7 +8,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Trophy } from "lucide-react";
-// import Player from "../player";
+// import Player from "../leaderboard"; -> all the info from APP will be migrated here once wrapped up
 import AllGames from "@/app/allgames/page";
 
 export const HighScoreModal = ({ isOpen, onClose, title, children }) => {
@@ -55,11 +55,7 @@ function HighscoreButton() {
             {/* <Player asChild /> */}
             <AllGames />
           </div>
-          <div className="p-12 border-t">
-            <Button onClick={onClose} className="w-full">
-              Close Modal
-            </Button>
-          </div>
+          <div className="p-12 border-t">{/* modal footer content */}</div>
         </DialogContent>
       </Dialog>
     </div>
