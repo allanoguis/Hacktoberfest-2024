@@ -51,26 +51,30 @@ module.exports = {
         },
       },
       keyframes: {
-  			gradient: {
-  				'0%': {
-  					backgroundPosition: '0% 50%'
-  				},
-  				'100%': {
-  					backgroundPosition: '100% 50%'
-  				}
-  			},
+        gradient: {
+          "0%": {
+            backgroundPosition: "0% 50%",
+          },
+          "100%": {
+            backgroundPosition: "100% 50%",
+          },
+        },
       },
       animation: {
-  			gradient: 'gradient 6s linear infinite',
-  			'spin-slow': 'spin 2s linear infinite',
-  			'spin-fast': 'spin 5s linear infinite',
-  			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
-  		},
+        gradient: "gradient 6s linear infinite",
+        "spin-slow": "spin 2s linear infinite",
+        "spin-fast": "spin 5s linear infinite",
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      fontFamily: {
+        // Added fontFamily configuration
+        space: ["var(--font-space-regular)", "var(--font-space-semibold)"], // Custom font family
       },
     },
   },

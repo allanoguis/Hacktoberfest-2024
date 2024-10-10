@@ -33,14 +33,13 @@ export const HighScoreModal = ({ isOpen, onClose, title, children }) => {
 
 function HighscoreButton() {
   const [isOpen, setIsOpen] = useState(false);
-  const onClose = () => setIsOpen(false);
   return (
     <div>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
           <Button
             variant="ghost"
-            className="text-purple-300 hover:text-white hover:bg-purple-500 transition-all duration-300"
+            className="hover:text-white hover:bg-purple-500 transition-all duration-300"
             onClick={() => setIsOpen(true)}
           >
             <Trophy className="inline-block mr-2 h-4 w-4" />

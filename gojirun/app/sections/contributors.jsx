@@ -31,13 +31,13 @@ export default function CollaboratorsPage() {
   }, []);
 
   return (
-    <div className="min-h-fit w-full bg-gradient-to-br from-gray-900 to-black text-white">
+    <div className="min-h-fit w-full">
       <div className="container mx-auto px-4 py-12">
         <div className="mb-12 text-center">
-          <h1 className="text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+          <h1 className="text-4xl font-bold mb-4 bg-clip-text bg-gradient-to-r from-[var(--tw-gradient-stops)] to-[var(--tw-gradient-stops)]">
             GitHub Contributors
           </h1>
-          <div className="flex items-center justify-center gap-2 text-purple-300">
+          <div className="flex items-center justify-center gap-2 hover:text-[var(--tw-color-purple-300)]">
             <Users className="h-6 w-6" />
             <span className="text-xl">{contributors.length} Contributors</span>
           </div>
@@ -46,7 +46,7 @@ export default function CollaboratorsPage() {
           {contributors.map((contributor) => (
             <Card
               key={contributor.id}
-              className="bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-lg border border-purple-500/20 text-white"
+              className="bg-opacity-50 transition-transform transform hover:scale-105"
             >
               <CardHeader>
                 <CardTitle className="flex items-center gap-4">
@@ -58,8 +58,10 @@ export default function CollaboratorsPage() {
                     className="rounded-full ring-2 ring-purple-500"
                   />
                   <div>
-                    <div className="font-semibold text-xl">{contributor.login}</div>
-                    <div className="text-sm text-purple-300">
+                    <div className="font-semibold text-xl">
+                      {contributor.login}
+                    </div>
+                    <div className="text-sm text-[var(--tw-color-purple-300)]">
                       {contributor.contributions} contributions
                     </div>
                   </div>
@@ -67,14 +69,14 @@ export default function CollaboratorsPage() {
               </CardHeader>
               <CardContent>
                 <div className="flex justify-between items-center mt-4">
-                  <div className="flex items-center gap-2 text-purple-300">
+                  <div className="flex items-center gap-2 text-[var(--tw-color-purple-300)]">
                     <Github className="h-5 w-5" />
                     <span>{contributor.contributions} commits</span>
                   </div>
                   <Button
                     variant="outline"
                     size="sm"
-                    className="bg-purple-500 text-white hover:bg-purple-600 border-none"
+                    className="bg-[var(--tw-color-purple-500)] text-white hover:bg-[var(--tw-color-purple-600)] border-none"
                   >
                     <a
                       href={contributor.html_url}

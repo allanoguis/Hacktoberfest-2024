@@ -26,10 +26,12 @@ export default function Navigation() {
   }
 
   return (
-    <nav className="flex min-w-full items-center justify-between h-16 sm:px-6 lg:px-8">
-      {/* Game Title  */}
+    <nav className="flex w-full mx-auto px-4 sm:px-6 lg:px-8 items-center justify-between h-16">
+      {/* Game Title */}
       <div className="flex-shrink-0">
-        <h1 className="text-2xl font-semibold">Gojirun</h1>
+        <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+          Gojirun
+        </h1>
       </div>
 
       {/* Navbar Links */}
@@ -37,27 +39,19 @@ export default function Navigation() {
         {/* Profile Button */}
         <Button
           variant="ghost"
-          className="hover:text-white hover:bg-purple-500 transition-all duration-300"
+          className="hover:bg-purple-500 transition-all duration-300"
         >
           <User className="inline-block mr-2 h-4 w-4" />
           Profile
         </Button>
-
         {/* High Scores Button */}
         <HighScoreModal />
         <HighScoreButton />
 
-        <SignedOut>
-          <SignInButton />
-        </SignedOut>
-        <SignedIn>
-          <UserButton />
-        </SignedIn>
-
         {/* Theme Toggle Button */}
         <Button
           variant="ghost"
-          className="hover:text-white hover:bg-purple-500 transition-all duration-300"
+          className="hover:bg-purple-500 transition-all duration-300"
           onClick={() => setTheme(theme === "light" ? "dark" : "light")}
         >
           <div className="relative h-[1.2rem] w-[1.2rem]">
