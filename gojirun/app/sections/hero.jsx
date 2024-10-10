@@ -1,6 +1,14 @@
-import { Button } from "@/components/ui/button";
 
-export default function Hero() {
+import { Button } from "@/components/ui/button";
+import {currentUser } from "@clerk/nextjs/server";
+
+export default async function Hero() {
+  const user = await currentUser();
+  const username = user?.username;
+  const un = username? `{$username}` : "";
+  console.log("un",un);
+
+
   return (
     <section className="relative flex items-center justify-center h-screen w-full bg-cover bg-center">
       {/* Dark Overlay */}
@@ -10,7 +18,11 @@ export default function Hero() {
       <div className="relative z-10 text-center">
         <h1 className="text-5xl font-extrabold mb-4 uppercase font-space">
           goji run
+        <h1 className="text-5xl font-extrabold mb-4 font-['Press_Start_2P'] uppercase">
+          Welcome to Gojirun! {un}
         </h1>
+
+
 
         {/* Tagline */}
         <p className="text-lg mb-8">
