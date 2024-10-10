@@ -5,13 +5,7 @@ import { Moon, Sun, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HighScoreModal } from "@/components/ui/modal";
 import HighScoreButton from "@/components/ui/modal";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 export default function Navigation() {
   const [mounted, setMounted] = useState(false);
@@ -47,6 +41,14 @@ export default function Navigation() {
         {/* High Scores Button */}
         <HighScoreModal />
         <HighScoreButton />
+
+        {/* User Authentication */}
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+        <SignedOut>
+          <SignInButton />
+        </SignedOut>
 
         {/* Theme Toggle Button */}
         <Button
