@@ -47,7 +47,7 @@ export default function Navigation() {
           <UserButton />
         </SignedIn>
         <SignedOut>
-          <SignInButton />
+          <SignInButton mode='modal'/>
         </SignedOut>
 
         {/* Theme Toggle Button */}
