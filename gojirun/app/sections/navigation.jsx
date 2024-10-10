@@ -23,7 +23,7 @@ export default function Navigation() {
     <nav className="flex w-full mx-auto px-4 sm:px-6 lg:px-8 items-center justify-between h-16">
       {/* Game Title */}
       <div className="flex-shrink-0">
-        <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+        <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-pink-200">
           Gojirun
         </h1>
       </div>
@@ -33,7 +33,7 @@ export default function Navigation() {
         {/* Profile Button */}
         <Button
           variant="ghost"
-          className="hover:bg-purple-500 transition-all duration-300"
+          className="hover:bg-accent transition-all duration-300"
         >
           <User className="inline-block mr-2 h-4 w-4" />
           Profile
@@ -53,7 +53,7 @@ export default function Navigation() {
         {/* Theme Toggle Button */}
         <Button
           variant="ghost"
-          className="hover:bg-purple-500 transition-all duration-300"
+          className="hover:bg-accent transition-all duration-500"
           onClick={() => setTheme(theme === "light" ? "dark" : "light")}
         >
           <div className="relative h-[1.2rem] w-[1.2rem]">

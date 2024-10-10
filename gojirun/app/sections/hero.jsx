@@ -8,8 +8,8 @@ export default function Hero() {
 
       {/* Content */}
       <div className="relative z-10 text-center">
-        <h1 className="text-5xl font-extrabold mb-4 font-['Press_Start_2P'] uppercase">
-          Welcome to Gojirun!
+        <h1 className="text-5xl font-extrabold mb-4 uppercase font-space">
+          goji run
         </h1>
 
         {/* Tagline */}
@@ -26,12 +26,11 @@ export default function Hero() {
         </Button>
 
         {/* Giphy Embed */}
-        <div className="mt-12">
+        <div className="mt-12 top-0 left-0">
           <iframe
             src="https://giphy.com/embed/YTzh3zw4mj1XpjjiIb"
-            width="400"
-            height="400"
-            frameBorder="0"
+            width="800"
+            height="800"
             className="giphy-embed mx-auto"
             allowFullScreen
             title="Giphy Animation" // Added title for accessibility

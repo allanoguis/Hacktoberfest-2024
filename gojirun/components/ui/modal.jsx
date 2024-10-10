@@ -39,7 +39,7 @@ function HighscoreButton() {
         <DialogTrigger asChild>
           <Button
             variant="ghost"
-            className="hover:text-white hover:bg-purple-500 transition-all duration-300"
+            className="hover:bg-accent transition-all duration-500"
             onClick={() => setIsOpen(true)}
           >
             <Trophy className="inline-block mr-2 h-4 w-4" />

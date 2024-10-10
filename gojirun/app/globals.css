@@ -79,7 +79,7 @@ html {
     --secondary-foreground: 210 40% 98%;
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
+    --accent: 0, 100%, 50%;
     --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
@@ -94,13 +94,6 @@ html {
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
-    /* background-color: hsl(222, 47%, 11%); */
-  }
-
-  body {
-    @apply bg-background text-foreground;
-  }
+.colortest {
+  background-color: hsl(0, 100%, 50%);
 }
