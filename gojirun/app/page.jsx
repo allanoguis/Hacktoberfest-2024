@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 import Hero from "./sections/hero";
 import Navigation from "./sections/navigation";
 import Game from "./sections/game";
