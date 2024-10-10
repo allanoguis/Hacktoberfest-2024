@@ -13,9 +13,9 @@ export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
       <html suppressHydrationWarning>
-        <head />
+        <header />
         <body
-          className={`bg-background text-foreground items-center justify-items-center p-0 font-space`}
+          className={`bg-background text-foreground items-center justify-items-center p-0 font-space transition-colors duration-300`}
         >
           <ThemeProvider attribute="class">{children}</ThemeProvider>
         </body>

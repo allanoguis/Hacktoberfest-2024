@@ -37,10 +37,10 @@ html {
   :root {
     --font-space-regular: "SpaceGrotesk-Regular";
     --font-space-semibold: "SpaceGrotesk-SemiBold";
-    --background: 0 0% 100%;
+    --background: 51, 48%, 92%;
     --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 205, 28%, 40%;
+    --card-foreground: 205, 28%, 40%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
     --primary: 222.2 47.4% 11.2%;
@@ -49,7 +49,7 @@ html {
     --secondary-foreground: 222.2 47.4% 11.2%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
+    --accent: 357, 100%, 67%;
     --accent-foreground: 222.2 47.4% 11.2%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
@@ -70,7 +70,7 @@ html {
     --background: 222, 47%, 11%;
     --foreground: 210 40% 98%;
     --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card-foreground: 320, 100%, 15%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
     --primary: 210 40% 98%;
@@ -95,5 +95,5 @@ html {
 }
 
 .colortest {
-  background-color: hsl(0, 100%, 50%);
+  background-color: hsl(320, 100%, 15%);
 }
