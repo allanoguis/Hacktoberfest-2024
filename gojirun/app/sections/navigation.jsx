@@ -23,7 +23,8 @@ export default function Navigation() {
     const fetchData = async () => {
       if (isLoaded && isSignedIn && user) {
         try {
-         
+          const backendURL = process.env.NEXT_PUBLIC_API_KEY;
+          
           const data = {
             userId: user.id || "000000",  // Pass relevant user info
             email: user.emailAddresses?.[0]?.emailAddress || 'No Email',  // Safely access the first email
@@ -31,8 +32,8 @@ export default function Navigation() {
           };
 
           // Make API call to your backend
-          const response = await axios.get(
-            "http://localhost:8000/api/testing",  
+          const response = await axios.post(
+            `${backendURL}/api/users`,  
             data
           );
 
