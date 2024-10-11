@@ -24,11 +24,14 @@ export default function Navigation() {
       if (isLoaded && isSignedIn && user) {
         try {
           const backendURL = process.env.NEXT_PUBLIC_API_KEY;
-          
+
           const data = {
-            userId: user.id || "000000",  // Pass relevant user info
-            email: user.emailAddresses?.[0]?.emailAddress || 'No Email',  // Safely access the first email
-            fullname: user.fullName || 'No Name',  // Safely access the full name
+            userId: user.id || "000000",  // User ID
+            email: user.emailAddresses?.[0]?.emailAddress || 'No Email',  // Email address
+            fullname: user.fullName || 'No Name',  // Full name
+            profileImageUrl: user.imageUrl || '', 
+            createdAt: user.createdAt,  // User account creation timestamp
+            lastSignInAt: user.lastSignInAt,  // Last sign-in timestamp
           };
 
           // Make API call to your backend
@@ -38,7 +41,6 @@ export default function Navigation() {
           );
 
           console.log(data);
-          console.log("API response:", response.data);
         } catch (error) {
           console.error("Error calling API:", error);
         }
