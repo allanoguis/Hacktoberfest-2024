@@ -8,7 +8,7 @@ export default function Hero() {
 
   // Safely get the username, or use firstName, or fallback to "Guest"
   const username = isLoaded && isSignedIn && user 
-    ? user.username || user.firstName || "Guest"
+    ? user.firstName
     : "Guest";
 
   return (
