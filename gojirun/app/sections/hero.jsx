@@ -1,11 +1,15 @@
-import { Button } from "@/components/ui/button";
-import { currentUser } from "@clerk/nextjs/server";
+"use client"; // Marks this component as client-side
 
-export default async function Hero() {
-  const user = await currentUser();
-  const username = user?.username;
-  const un = username ? `{$username}` : "";
-  console.log("un", un);
+import { Button } from "@/components/ui/button";
+import { useUser } from "@clerk/nextjs";  // Clerk's useUser hook
+
+export default function Hero() {
+  const { isLoaded, isSignedIn, user } = useUser();  // useUser hook for client-side user data
+
+  // Safely get the username, or use firstName, or fallback to "Guest"
+  const username = isLoaded && isSignedIn && user 
+    ? user.username || user.firstName || "Guest"
+    : "Guest";
 
   return (
     <section className="relative flex items-center justify-center h-screen w-full bg-cover bg-center">
@@ -14,11 +18,8 @@ export default async function Hero() {
 
       {/* Content */}
       <div className="relative z-10 text-center">
-        <h1 className="text-5xl font-extrabold mb-4 uppercase font-space">
-          goji run
-        </h1>
         <h1 className="text-5xl font-extrabold mb-4 font-['Press_Start_2P'] uppercase">
-          Welcome to Gojirun! {un}
+          Welcome to Gojirun! {username}
         </h1>
 
         {/* Tagline */}
@@ -35,11 +36,12 @@ export default async function Hero() {
         </Button>
 
         {/* Giphy Embed */}
-        <div className="mt-12 top-0 left-0">
+        <div className="mt-12">
           <iframe
             src="https://giphy.com/embed/YTzh3zw4mj1XpjjiIb"
-            width="800"
-            height="800"
+            width="400"
+            height="400"
+            frameBorder="0"
             className="giphy-embed mx-auto"
             allowFullScreen
             title="Giphy Animation" // Added title for accessibility
