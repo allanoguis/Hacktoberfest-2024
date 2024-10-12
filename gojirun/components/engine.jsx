@@ -7,6 +7,7 @@ import cloud1Image from "@/app/images/cloud1.png";
 import cloud2Image from "@/app/images/cloud2.png";
 import cloud3Image from "@/app/images/cloud3.png";
 import { saveGame } from "../api/saveGameAPI/route";
+import { SignInButton, SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
 
 // Constants
 const GAME_HEIGHT = 600;
@@ -51,6 +52,8 @@ export default function Engine() {
   const [cloud3, setCloud3] = useState(GAME_WIDTH); // cloud3
   const [score, setScore] = useState(0);
   const [jumping, setJumping] = useState(false);
+  const { isLoaded, isSignedIn, user } = useUser();  // Use Clerk's useUser hook to detect sign-in
+
 
   // Refs
   const canvasRef = useRef(null);
@@ -283,7 +286,8 @@ export default function Engine() {
       const isFirefox = /Firefox/.test(userAgent);
       const isSafari = /Safari/.test(userAgent) && !/Chrome/.test(userAgent);
       const isOpera = /OPR/.test(userAgent);
-
+      const playerID = user.id || "000000";  // User ID
+      const fullname = user.fullName || 'Guest';
       let browserName = "Unknown Browser";
       if (isBrave) {
         browserName = "Brave";
@@ -301,6 +305,8 @@ export default function Engine() {
 
       // Call the saveGame API with extended payload
       const data = {
+        player: playerID,
+        playerName : fullname,
         score: score,
         time: currentTime,
         ipAddress: ipAddress,
