@@ -1,7 +1,7 @@
 import db from "../firebaseConfig.js";
 
 export const saveGame = async (req, res) => {
-  const { time, score, ipAddress, deviceType, userAgent } = req.body;
+  const {player,playerName, time, score, ipAddress, deviceType, userAgent } = req.body;
   console.log(time);
 
   try {
@@ -9,6 +9,8 @@ export const saveGame = async (req, res) => {
 
     // Save the game data to Firestore
     const docRef = await db.collection("games").add({
+      player,
+      playerName,
       time,
       score,
       ipAddress,
