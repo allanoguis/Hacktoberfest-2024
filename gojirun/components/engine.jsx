@@ -286,8 +286,9 @@ export default function Engine() {
       const isFirefox = /Firefox/.test(userAgent);
       const isSafari = /Safari/.test(userAgent) && !/Chrome/.test(userAgent);
       const isOpera = /OPR/.test(userAgent);
-      const playerID = user.id || "000000";  // User ID
-      const fullname = user.fullName || 'Guest';
+      const playerID = isLoaded && isSignedIn && user?user.id : "000000";
+      const fullname =  isLoaded && isSignedIn && user? user.fullName: "Guest";
+
       let browserName = "Unknown Browser";
       if (isBrave) {
         browserName = "Brave";
