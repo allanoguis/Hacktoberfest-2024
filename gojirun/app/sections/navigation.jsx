@@ -1,5 +1,5 @@
 "use client";
-
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { Moon, Sun, User } from "lucide-react";
@@ -10,6 +10,7 @@ import { SignInButton, SignedIn, SignedOut, UserButton, useUser } from "@clerk/n
 import axios from "axios";  // For making API requests
 
 export default function Navigation() {
+  const router = useRouter()
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
   const { isLoaded, isSignedIn, user } = useUser();  // Use Clerk's useUser hook to detect sign-in
@@ -53,7 +54,9 @@ export default function Navigation() {
   if (!mounted) {
     return null;
   }
-
+const takeToProfilePage=()=>{
+router.push("/ProfilePage")
+}
   return (
     <nav className="flex w-full mx-auto px-4 sm:px-6 lg:px-8 items-center justify-between h-16">
       {/* Game Title */}
@@ -69,6 +72,7 @@ export default function Navigation() {
         <Button
           variant="ghost"
           className="hover:bg-accent transition-all duration-300"
+          onClick={()=>takeToProfilePage()}
         >
           <User className="inline-block mr-2 h-4 w-4" />
           Profile
