@@ -72,7 +72,7 @@ export default function Footer() {
               />
               <button
                 type="submit"
-                className="mt-2 w-full px-4 py-2 bg-indigo-600/60 text-white rounded-md hover:bg-accent transition-all duration-500"
+                className="mt-2 w-full px-4 py-2 bg-card-foreground text-white rounded-md hover:bg-accent transition-all duration-500"
               >
                 Subscribe
               </button>

@@ -1,25 +1,29 @@
 "use client";
 
 import React from "react";
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/playerCard";
 
-export const Player = () => {
+export const Leaderboard = () => {
   return (
-    <div>
-      <h2 className="text-xl font-semibold mb-4">Player Score details</h2>
-      <p className="mb-4">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor,
-        nunc id aliquam tincidunt, nisl nunc tincidunt nunc, vitae aliquam nunc
-        nunc vitae nunc. Sed euismod, nunc id aliquam tincidunt, nisl nunc
-        tincidunt nunc, vitae aliquam nunc nunc vitae nunc.
-      </p>
-      <p className="mb-4">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor,
-        nunc id aliquam tincidunt, nisl nunc tincidunt nunc, vitae aliquam nunc
-        nunc vitae nunc. Sed euismod, nunc id aliquam tincidunt, nisl nunc
-        tincidunt nunc, vitae aliquam nunc nunc vitae nunc.
-      </p>
-    </div>
+    <>
+      <Card>
+        <CardHeader>
+          <span>Player Avatar</span>
+        </CardHeader>
+        <CardContent>
+          <span>Player Score details</span>
+        </CardContent>
+        <CardFooter>
+          <span>Player Email</span>
+        </CardFooter>
+      </Card>
+    </>
   );
 };
 
-export default Player;
+export default Leaderboard;
