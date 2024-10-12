@@ -1,164 +1,101 @@
-"use client"
-import React, { useState } from 'react';
+"use client";
+import React, { useState } from "react";
+import Navigation from "../sections/navigation";
 
 const styles = {
-  container: {
-    maxWidth: '800px',
-    margin: '0 auto',
-    padding: '20px',
-    fontFamily: 'Arial, sans-serif',
-  },
-  header: {
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: '20px',
-  },
-  avatar: {
-    width: '100px',
-    height: '100px',
-    borderRadius: '50%',
-    marginRight: '20px',
-  },
-  name: {
-    fontSize: '24px',
-    fontWeight: 'bold',
-    margin: '0',
-  },
-  email: {
-    fontSize: '16px',
-    color: '#666',
-    margin: '5px 0',
-  },
-  statsContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
-    marginBottom: '20px',
-  },
-  statBox: {
-    flex: '1 1 200px',
-    backgroundColor: '#f0f0f0',
-    padding: '15px',
-    margin: '10px',
-    borderRadius: '5px',
-    textAlign: 'center',
-  },
-  statTitle: {
-    fontSize: '14px',
-    color: '#333',
-    marginBottom: '5px',
-  },
-  statValue: {
-    fontSize: '24px',
-    fontWeight: 'bold',
-    color: '#007bff',
-  },
-  section: {
-    marginBottom: '20px',
-  },
-  sectionTitle: {
-    fontSize: '18px',
-    fontWeight: 'bold',
-    marginBottom: '10px',
-  },
-  achievementList: {
-    listStyle: 'none',
-    padding: '0',
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  achievement: {
-    backgroundColor: '#e0e0e0',
-    padding: '5px 10px',
-    margin: '5px',
-    borderRadius: '15px',
-    fontSize: '14px',
-  },
-  activityList: {
-    listStyle: 'none',
-    padding: '0',
-  },
-  activityItem: {
-    padding: '10px 0',
-    borderBottom: '1px solid #e0e0e0',
-  },
-  button: {
-    backgroundColor: '#007bff',
-    color: 'white',
-    border: 'none',
-    padding: '10px 20px',
-    fontSize: '16px',
-    borderRadius: '5px',
-    cursor: 'pointer',
-  },
+  avatar: {},
 };
 
 export default function ProfilePage() {
   const [user, setUser] = useState({
-    email: 'John@example.com',
-    fullName: 'John Doe',
-    profileImageUrl: '/placeholder.svg?height=100&width=100',
+    email: "John@example.com",
+    fullName: "John Doe",
+    profileImageUrl: "https://nosrc.net/100x100",
     level: 42,
     experiencePoints: 8700,
     totalExperiencePoints: 10000,
-    achievements: ['First Win', 'Reach Level 10', 'Complete Tutorial', 'Win 100 Games'],
+    achievements: [
+      "First Win",
+      "Reach Level 10",
+      "Complete Tutorial",
+      "Win 100 Games",
+    ],
     recentActivity: [
-      'Won a match in Fortnite',
-      'Completed daily quest in World of Warcraft',
-      'Reached level 30 in League of Legends',
-      'Unlocked new character in Genshin Impact'
-    ]
+      "Won a match in Fortnite",
+      "Completed daily quest in World of Warcraft",
+      "Reached level 30 in League of Legends",
+      "Unlocked new character in Genshin Impact",
+    ],
   });
 
   const handleLogout = () => {
     // Implement logout logic here
-    console.log('Logout clicked');
+    console.log("Logout clicked");
   };
 
   return (
-    <div style={styles.container}>
-      <header style={styles.header}>
-        <img src={user.profileImageUrl} alt={user.fullName} style={styles.avatar} />
-        <div>
-          <h1 style={styles.name}>{user.fullName}</h1>
-          <p style={styles.email}>{user.email}</p>
-        </div>
-      </header>
+    <>
+      <Navigation />
+      <div className="max-w-lg mx-auto my-10 p-1 justify-center items-center">
+        <header className="flex items-center pb-5">
+          <img
+            src={user.profileImageUrl}
+            alt={user.fullName}
+            className="w-100 h-100 rounded-full ml-2 mr-10"
+          />
+          <div>
+            <h1 className="font-semibold text-2xl m-0">{user.fullName}</h1>
+            <p className="font-light text-sm m-0">{user.email}</p>
+          </div>
+        </header>
 
-      <div style={styles.statsContainer}>
-        <div style={styles.statBox}>
-          <p style={styles.statTitle}>Level</p>
-          <p style={styles.statValue}>{user.level}</p>
+        <div className="grid grid-cols-3 gap-5 justify-between mb-5 text-white">
+          <div className="p-1 m-1 rounded-lg text-center bg-chart-2">
+            <p>Level</p>
+            <p>{user.level}</p>
+          </div>
+          <div className="p-1 m-1 rounded-lg text-center bg-chart-2">
+            <p>Experience</p>
+            <p>{`${user.experiencePoints} / ${user.totalExperiencePoints}`}</p>
+          </div>
+          <div className="p-1 m-1 rounded-lg text-center bg-chart-2">
+            <p>Achievements</p>
+            <p>{user.achievements.length}</p>
+          </div>
         </div>
-        <div style={styles.statBox}>
-          <p style={styles.statTitle}>Experience</p>
-          <p style={styles.statValue}>{`${user.experiencePoints} / ${user.totalExperiencePoints}`}</p>
-        </div>
-        <div style={styles.statBox}>
-          <p style={styles.statTitle}>Achievements</p>
-          <p style={styles.statValue}>{user.achievements.length}</p>
-        </div>
+
+        <section className="mb-2">
+          <h2 className="text-lg font-semibold mb-5">Achievement List</h2>
+          <ul className="flex flex-col w-full justify-start text-center list-none p-0 gap-5 text-white">
+            {user.achievements.map((achievement, index) => (
+              <li
+                key={index}
+                className="w-1/3 p-2 rounded-full bg-card-foreground"
+              >
+                {achievement}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="my-5">
+          <h2 className="text-lg font-semibold mb-5">Recent Activity</h2>
+          <ul className="list-none p-0">
+            {user.recentActivity.map((activity, index) => (
+              <li key={index} className="pb-2 border-b border-foreground mb-5">
+                {activity}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <button
+          onClick={handleLogout}
+          className="my-5 bg-chart-1 text-white rounded-lg p-2 w-full hover:bg-accent transition-colors duration-200"
+        >
+          Logout
+        </button>
       </div>
-
-      <section style={styles.section}>
-        <h2 style={styles.sectionTitle}>Achievements</h2>
-        <ul style={styles.achievementList}>
-          {user.achievements.map((achievement, index) => (
-            <li key={index} style={styles.achievement}>{achievement}</li>
-          ))}
-        </ul>
-      </section>
-
-      <section style={styles.section}>
-        <h2 style={styles.sectionTitle}>Recent Activity</h2>
-        <ul style={styles.activityList}>
-          {user.recentActivity.map((activity, index) => (
-            <li key={index} style={styles.activityItem}>{activity}</li>
-          ))}
-        </ul>
-      </section>
-
-      <button onClick={handleLogout} style={styles.button}>Logout</button>
-    </div>
+    </>
   );
 }
