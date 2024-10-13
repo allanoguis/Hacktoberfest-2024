@@ -15,6 +15,8 @@ Start Contributing: Feel free to contribute any quality code as long as it works
 
 ---
 
+![image](https://github.com/user-attachments/assets/557c1c1e-d143-44c0-817a-ab124fef9151)
+
 ## Project: Gojirun
 
 Gojirun is a 2D platformer game inspired by the classic T-Rex run from Chrome. The game is made with SVG assets built in React JS. This project is dedicated to Hacktoberfest 2024 and all its contributors.
