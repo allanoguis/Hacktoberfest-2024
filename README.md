@@ -1,6 +1,38 @@
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/t/allanoguis/hacktoberfest-2024) ![GitHub contributors](https://img.shields.io/github/contributors/allanoguis/hacktoberfest-2024) ![GitHub repo size](https://img.shields.io/github/repo-size/allanoguis/hacktoberfest-2024) ![GitHub Repo stars](https://img.shields.io/github/stars/allanoguis/hacktoberfest-2024) ![GitHub forks](https://img.shields.io/github/forks/allanoguis/hacktoberfest-2024)
 
-![Hactoberfest 2024](hacktoberfest.jpg)
+## 🚀Featured In
+
+<table>
+
+   <tr>
+      <th>Event Logo</th>
+      <th>Event Name</th>
+      <th>Event Description</th>
+   </tr>
+    <tr>
+      <td><img src="Hack.jpg" width="200" height="auto" loading="lazy" alt="Hacktoberfest 2024"/></td>
+      <td>Hacktoberfest 2024</td>
+      <td>Hacktoberfest is a month-long celebration of open source software run by DigitalOcean, GitHub, and Twilio. It encourages contributions to open source projects and promotes a global community of developers.</td>
+   </tr>
+
+</table>
+
+<br />
+
+# Table of Contents
+
+1. [Featured In](#featured-in)
+2. [Hacktoberfest 2024](#hacktoberfest-2024)
+3. [Event Date](#-event-date)
+4. [How to Participate?](#-how-to-participate)
+5. [Project: Gojirun](#project-gojirun)
+6. [How to Contribute](#how-to-contribute)
+7. [Avoid Conflicts {Syncing your fork}](#avoid-conflicts-syncing-your-fork)
+8. [Contributors](#contributors)
+9. [Forkers](#forkers)
+10. [Share Your Thoughts!](#share-your-thoughts)
+11. [License](#license)
+12. [Acknowledgments](#acknowledgments)
 
 # Hacktoberfest 2024
 
@@ -47,6 +79,23 @@ For more information on syncing forks, read this article from GitHub.
 
 ---
 
+## Contributors
+
+A heartfelt thank you to the following individuals for their valuable contributions to this project. Your support and dedication are greatly appreciated:
+
+<a href="https://github.com/allanoguis/Hacktoberfest-2024/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=allanoguis/Hacktoberfest-2024" />
+</a>
+
+<br>
+
+## Forkers
+<div align='center'>
+
+[![Forkers repo roster for @allanoguis/Hacktoberfest-2024](https://reporoster.com/forks/allanoguis/Hacktoberfest-2024)](https://github.com/allanoguis/Hacktoberfest-2024/network/members)
+
+</div>
+
 ## Share Your Thoughts!
 
 We’d love to hear your thoughts! If you have any ideas, or feedback, or even just want to let us know how we’re doing, feel free to open an issue or drop us a message. Your feedback is greatly appreciated and helps improve the project!
@@ -54,6 +103,11 @@ We’d love to hear your thoughts! If you have any ideas, or feedback, or even j
 ---
 
 
+<div align="center">
+    <a href="#top">
+        <img src="https://img.shields.io/badge/Back%20to%20Top-000000?style=for-the-badge&logo=github&logoColor=white" alt="Back to Top">
+    </a>
+</div>
 
 ## License
 
