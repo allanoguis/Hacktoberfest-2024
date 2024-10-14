@@ -40,15 +40,7 @@ export default function Hero() {
             animate="visible"
             className="absolute inset-0 flex items-center justify-center bg-background z-20"
           >
-            <h2 className="text-2xl font-bold">
-              <svg class="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
-                <path
-                  fill="currentColor"
-                  d="M12 22C17.523 22 22 17.523 22 12H19V7H12V2L6 7l6 5V12h3z"
-                />
-              </svg>
-              Loading...
-            </h2>
+            <h2 className="text-2xl font-bold">Loading...</h2>
           </motion.div>
         )}
         {/* Main Content */}
