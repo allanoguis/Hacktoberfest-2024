@@ -1,15 +1,13 @@
 "use client"; // Marks this component as client-side
 
 import { Button } from "@/components/ui/button";
-import { useUser } from "@clerk/nextjs";  // Clerk's useUser hook
+import { useUser } from "@clerk/nextjs"; // Clerk's useUser hook
 
 export default function Hero() {
-  const { isLoaded, isSignedIn, user } = useUser();  // useUser hook for client-side user data
+  const { isLoaded, isSignedIn, user } = useUser(); // useUser hook for client-side user data
 
   // Safely get the username, or use firstName, or fallback to "Guest"
-  const username = isLoaded && isSignedIn && user 
-    ? user.firstName
-    : "Guest";
+  const username = isLoaded && isSignedIn && user ? user.firstName : "Guest";
 
   return (
     <section className="relative flex items-center justify-center h-screen w-full bg-cover bg-center">

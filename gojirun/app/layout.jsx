@@ -12,10 +12,19 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
-      <html lang='en' className="scroll-smooth antialiased" suppressHydrationWarning>
+      <html
+        lang="en"
+        className="scroll-smooth antialiased"
+        suppressHydrationWarning
+      >
         <head />
-        <body className={`items-center justify-items-center p-0 font-space`}>
-          <ThemeProvider className={`flex min-h-screen flex-col`} attribute="class">{children}</ThemeProvider>
+        <body className="items-center justify-items-center p-0 font-space transition-all duration-300">
+          <ThemeProvider
+            className={`flex min-h-screen flex-col`}
+            attribute="class"
+          >
+            {children}
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

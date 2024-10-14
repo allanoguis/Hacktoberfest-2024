@@ -8,18 +8,18 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Trophy } from "lucide-react";
-import Player from "../leaderboard"; // all the info from APP will be migrated here once wrapped up
-// import AllGames from "@/app/allgames/page";
+import Leaderboard from "../leaderboard"; // all the info from APP will be migrated here once wrapped up
+// import AllGames from "@/app/allgames/page"; // Removed unused import
 
-export const HighScoreModal = ({ isOpen, onClose, title, children }) => {
+export const HighScoreModal = ({ isOpen, onClose, children }) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent
-        className="max-w-full h-screen w-screen m-0 p-0"
+        className="max-w-full h-screen m-0 p-0"
         aria-describedby="highscore-modal"
       >
         <DialogHeader className="p-6 border-b">
-          <DialogTitle className="text-2xl font-bold">{title}</DialogTitle>
+          <DialogTitle className="text-2xl font-bold">Leaderboard</DialogTitle>
         </DialogHeader>
         <div
           className="p-9 overflow-y-auto h-[calc(100vh-140px)]"
@@ -52,15 +52,15 @@ function HighscoreButton() {
             Leaderboard
           </Button>
         </DialogTrigger>
-        <DialogContent className="max-w-full h-screen w-screen m-0 p-0">
+        <DialogContent className="max-w-full h-screen m-0 p-0">
           <DialogHeader className="p-6 border-b">
             <DialogTitle className="text-2xl font-bold">
               Leaderboard
             </DialogTitle>
           </DialogHeader>
           <div className="p-6 overflow-y-auto h-[calc(100vh-140px)]">
-            <Player />
-            {/* <AllGames /> */}
+            <Leaderboard />
+            {/* <AllGames /> */} {/* Removed unused comment */}
           </div>
           <div className="p-12 border-t">{/* modal footer content */}</div>
         </DialogContent>

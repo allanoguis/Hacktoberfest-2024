@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
-import { Moon, Sun, User } from "lucide-react";
+import { Moon, Sun, User, LucideHome } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HighScoreModal } from "@/components/ui/modal";
 import HighScoreButton from "@/components/ui/modal";
@@ -14,13 +14,13 @@ import {
   useUser,
 } from "@clerk/nextjs";
 import axios from "axios"; // For making API requests
-import Link from "next/link";
 
 export default function Navigation() {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
   const { isLoaded, isSignedIn, user } = useUser(); // Use Clerk's useUser hook to detect sign-in
+  const username = isLoaded && isSignedIn && user ? user.firstName : "Guest";
 
   useEffect(() => {
     setMounted(true);
@@ -43,7 +43,7 @@ export default function Navigation() {
           };
 
           // Make API call to your backend
-          const response = await axios.post(`${backendURL}/api/users`, data);
+          const response = await axios.post(`${backendURL}/api/users`, data); // POST request to /api/users
 
           console.log(data);
         } catch (error) {
@@ -61,19 +61,40 @@ export default function Navigation() {
   const takeToProfilePage = () => {
     router.push("/ProfilePage");
   };
+
+  const Home = () => {
+    router.push("/");
+  };
+
   return (
     <nav className="flex w-full mx-auto px-4 sm:px-6 lg:px-8 items-center justify-between h-16">
-      {/* Game Title */}
-      <Link href="/">
-        <div className="flex-shrink-0">
-          <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-pink-200">
-            Gojirun
-          </h1>
+      {/* User Area */}
+      <div className="flex-shrink-0 inline-flex items-center">
+        <div className="mr-5">
+          <span>Welcome, {username}</span>
         </div>
-      </Link>
+        <div className="mr-5">
+          {/* User Authentication */}
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+          <SignedOut>
+            <SignInButton mode="modal" />
+          </SignedOut>
+        </div>
+      </div>
 
       {/* Navbar Links */}
       <div className="ml-10 flex items-center space-x-4">
+        <Button
+          variant="ghost"
+          className="hover:bg-accent transition-all duration-300"
+          onClick={() => Home()}
+        >
+          <LucideHome className="inline-block mr-2 h-4 w-4" />
+          Home
+        </Button>
+
         {/* Profile Button */}
         <Button
           variant="ghost"
@@ -87,14 +108,6 @@ export default function Navigation() {
         {/* High Scores Button */}
         <HighScoreModal />
         <HighScoreButton />
-
-        {/* User Authentication */}
-        <SignedIn>
-          <UserButton />
-        </SignedIn>
-        <SignedOut>
-          <SignInButton mode="modal" />
-        </SignedOut>
 
         {/* Theme Toggle Button */}
         <Button
