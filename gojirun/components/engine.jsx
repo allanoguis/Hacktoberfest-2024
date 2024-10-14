@@ -7,7 +7,7 @@ import cloud1Image from "@/app/images/cloud1.png";
 import cloud2Image from "@/app/images/cloud2.png";
 import cloud3Image from "@/app/images/cloud3.png";
 import { saveGame } from "../api/saveGameAPI/route";
-import { SignInButton, SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
+import {useUser} from "@clerk/nextjs";
 
 // Constants
 const GAME_HEIGHT = 600;
