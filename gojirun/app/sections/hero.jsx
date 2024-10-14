@@ -43,6 +43,7 @@ export default function Hero() {
             <h2 className="text-2xl font-bold">Loading...</h2>
           </motion.div>
         )}
+
         {/* Main Content */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -80,6 +81,7 @@ export default function Hero() {
             x: -50, // End at left 0
             y: screenHeight - 520, // Move to the calculated bottom of the screen
           }}
+          exit={{ opacity: 0, transition: { duration: 0.5 } }} // Added transition for exit
           transition={{ duration: 1 }} // Duration of the animation
           className="absolute top-0 left-0" // Positioning the image
         >
@@ -98,6 +100,7 @@ export default function Hero() {
             x: screenWidth - 600,
             y: screenHeight - 400, // scroll tank to left
           }}
+          exit={{ opacity: 0, transition: { duration: 0.5 } }} // Added transition for exit
           transition={{ duration: 1, delay: 0.2 }}
           className="absolute top-0 left-0"
         >
@@ -116,6 +119,7 @@ export default function Hero() {
             x: screenWidth * 0.1,
             y: screenHeight * 0.1,
           }}
+          exit={{ opacity: 0, transition: { duration: 0.5 } }} // Added transition for exit
           transition={{ duration: 1, delay: 1 }}
           className="absolute top-0 left-0"
         >
@@ -134,6 +138,7 @@ export default function Hero() {
             x: screenWidth * 0.4,
             y: screenHeight * 0.25,
           }}
+          exit={{ opacity: 0, transition: { duration: 0.5 } }} // Added transition for exit
           transition={{ duration: 1, delay: 1 }}
           className="absolute top-0 left-0"
         >
@@ -152,6 +157,7 @@ export default function Hero() {
             x: screenWidth * 0.7,
             y: screenHeight * 0.15,
           }}
+          exit={{ opacity: 0, transition: { duration: 0.5 } }} // Added transition for exit
           transition={{ duration: 1, delay: 1 }}
           className="absolute top-0 left-0"
         >
