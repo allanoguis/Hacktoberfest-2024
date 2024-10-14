@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
         suppressHydrationWarning
       >
         <head />
-        <body className="items-center justify-items-center p-0 font-space transition-all duration-300">
+        <body className="items-center bg-background justify-items-center p-0 font-space transition-all duration-300">
           <ThemeProvider
             className={`flex min-h-screen flex-col`}
             attribute="class"

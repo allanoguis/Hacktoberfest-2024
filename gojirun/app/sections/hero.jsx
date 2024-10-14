@@ -2,50 +2,162 @@
 
 import { Button } from "@/components/ui/button";
 import { useUser } from "@clerk/nextjs"; // Clerk's useUser hook
+import { motion, animate, useAnimation } from "framer-motion"; // Added useAnimation
+import Image from "next/image";
+import herogojira from "@/app/images/herogojira.png";
+import herotank from "@/app/images/herotank.png";
+import cloud1 from "@/app/images/cloud1.png";
+import useMediaQuery from "@/lib/useMediaQuery";
 
 export default function Hero() {
   const { isLoaded, isSignedIn, user } = useUser(); // useUser hook for client-side user data
-
   // Safely get the username, or use firstName, or fallback to "Guest"
   const username = isLoaded && isSignedIn && user ? user.firstName : "Guest";
 
+  // Animation variants
+  const loadingVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.5 } },
+  };
+
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
+  // Calculate screen height
+  const screenHeight = typeof window !== "undefined" ? window.innerHeight : 0; // Get screen height
+  const screenWidth = typeof window !== "undefined" ? window.innerWidth : 0; // Get screen width
   return (
-    <section className="relative flex items-center justify-center h-screen w-full bg-cover bg-center">
-      {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-background opacity-50"></div>
-
-      {/* Content */}
-      <div className="relative z-10 text-center">
-        <h1 className="text-5xl font-extrabold mb-4 font-['Press_Start_2P'] uppercase">
-          Welcome to Gojirun! {username}
-        </h1>
-
-        {/* Tagline */}
-        <p className="text-lg mb-8">
-          A 2D platformer inspired by the classic Chrome T-Rex run.
-        </p>
-
-        {/* Play Now Button */}
-        <Button
-          asChild
-          className="px-8 py-6 bg-gradient-to-r from-purple-500 to-pink-600 text-lg font-bold rounded-full hover:from-purple-600 hover:to-pink-700 transition duration-1000 shadow-lg animate-bounce"
+    <motion.div
+      initial={{ width: isMobile ? "100%" : "50%" }}
+      animate={{ width: isMobile ? "100%" : "50%" }}
+      transition={{ duration: 0.5 }}
+    >
+      <section className="relative flex items-center justify-center h-screen w-screen bg-cover bg-center">
+        {/* Loading Screen */}
+        {!isLoaded && (
+          <motion.div
+            variants={loadingVariants}
+            initial="hidden"
+            animate="visible"
+            className="absolute inset-0 flex items-center justify-center bg-background z-20"
+          >
+            <h2 className="text-2xl font-bold">Loading...</h2>
+          </motion.div>
+        )}
+        {/* Main Content */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isLoaded ? 1 : 0 }}
+          transition={{ duration: 0.5 }}
+          className="relative z-10 text-center"
         >
-          <a href="#game">Play Now</a>
-        </Button>
+          <p className="text-5xl font-extrabold mb-4 uppercase">
+            Welcome to Gojirun! {username}
+          </p>
 
-        {/* Giphy Embed */}
-        <div className="mt-12">
-          <iframe
-            src="https://giphy.com/embed/YTzh3zw4mj1XpjjiIb"
-            width="400"
-            height="400"
-            frameBorder="0"
-            className="giphy-embed mx-auto"
-            allowFullScreen
-            title="Giphy Animation" // Added title for accessibility
-          ></iframe>
-        </div>
-      </div>
-    </section>
+          {/* Tagline */}
+          <p className="text-lg mb-8">
+            A 2D platformer inspired by the classic Chrome T-Rex run.
+          </p>
+
+          {/* Play Now Button */}
+          <Button
+            asChild
+            className="px-8 py-6 bg-gradient-to-r from-purple-500 to-pink-600 text-lg font-bold rounded-full hover:from-purple-600 hover:to-pink-700 transition duration-1000 shadow-lg animate-bounce"
+          >
+            <a href="#game">Play Now</a>
+          </Button>
+        </motion.div>
+
+        {/* gojira */}
+        <motion.div
+          initial={{
+            opacity: 0,
+            x: -800, // gojira initial position
+            y: 0,
+          }}
+          animate={{
+            opacity: 1,
+            x: -50, // End at left 0
+            y: screenHeight - 520, // Move to the calculated bottom of the screen
+          }}
+          transition={{ duration: 1 }} // Duration of the animation
+          className="absolute top-0 left-0" // Positioning the image
+        >
+          <Image src={herogojira} alt="Gojira Hero" />
+        </motion.div>
+
+        {/* tank */}
+        <motion.div
+          initial={{
+            opacity: 0,
+            x: screenWidth,
+            y: screenHeight - 400, // tank initial position
+          }}
+          animate={{
+            opacity: 1,
+            x: screenWidth - 600,
+            y: screenHeight - 400, // scroll tank to left
+          }}
+          transition={{ duration: 1, delay: 0.2 }}
+          className="absolute top-0 left-0"
+        >
+          <Image src={herotank} alt="Tank Hero" />
+        </motion.div>
+
+        {/* cloud1 */}
+        <motion.div
+          initial={{
+            opacity: 0,
+            x: screenWidth * 1,
+            y: screenHeight * 0.1,
+          }}
+          animate={{
+            opacity: 1,
+            x: screenWidth * 0.1,
+            y: screenHeight * 0.1,
+          }}
+          transition={{ duration: 1, delay: 1 }}
+          className="absolute top-0 left-0"
+        >
+          <Image src={cloud1} alt="cloud1" />
+        </motion.div>
+
+        {/* cloud2 */}
+        <motion.div
+          initial={{
+            opacity: 0,
+            x: screenWidth * 1,
+            y: screenHeight * 0.25,
+          }}
+          animate={{
+            opacity: 1,
+            x: screenWidth * 0.4,
+            y: screenHeight * 0.25,
+          }}
+          transition={{ duration: 1, delay: 1 }}
+          className="absolute top-0 left-0"
+        >
+          <Image src={cloud1} alt="cloud1" />
+        </motion.div>
+
+        {/* cloud3 */}
+        <motion.div
+          initial={{
+            opacity: 0,
+            x: screenWidth * 1,
+            y: screenHeight * 0.15,
+          }}
+          animate={{
+            opacity: 1,
+            x: screenWidth * 0.7,
+            y: screenHeight * 0.15,
+          }}
+          transition={{ duration: 1, delay: 1 }}
+          className="absolute top-0 left-0"
+        >
+          <Image src={cloud1} alt="cloud1" />
+        </motion.div>
+      </section>
+    </motion.div>
   );
 }
