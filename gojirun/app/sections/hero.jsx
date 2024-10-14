@@ -7,6 +7,7 @@ import Image from "next/image";
 import herogojira from "@/app/images/herogojira.png";
 import herotank from "@/app/images/herotank.png";
 import cloud1 from "@/app/images/cloud1.png";
+
 import useMediaQuery from "@/lib/useMediaQuery";
 
 export default function Hero() {
@@ -31,7 +32,7 @@ export default function Hero() {
       animate={{ width: isMobile ? "100%" : "50%" }}
       transition={{ duration: 0.5 }}
     >
-      <section className="relative flex items-center justify-center h-screen w-screen bg-cover bg-center">
+      <section className="relative flex items-center justify-center bg-gradient-to-b from-blue-400 to-orange-400 dark:from-blue-900 dark:to-orange-900 h-screen w-screen bg-cover bg-center">
         {/* Loading Screen */}
         {!isLoaded && (
           <motion.div
