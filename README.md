@@ -1,5 +1,9 @@
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/t/allanoguis/hacktoberfest-2024) ![GitHub contributors](https://img.shields.io/github/contributors/allanoguis/hacktoberfest-2024) ![GitHub repo size](https://img.shields.io/github/repo-size/allanoguis/hacktoberfest-2024) ![GitHub Repo stars](https://img.shields.io/github/stars/allanoguis/hacktoberfest-2024) ![GitHub forks](https://img.shields.io/github/forks/allanoguis/hacktoberfest-2024)
 
+![light](https://github.com/user-attachments/assets/34cdd661-bc70-48fe-8ca2-d7d44c0e74e3)
+
+![dark](https://github.com/user-attachments/assets/b5e9be7b-9183-4c90-b7af-f2f058539dfa)
+
 ## 🚀Featured In
 
 <table>
