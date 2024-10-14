@@ -8,7 +8,7 @@ Thank you for considering contributing to our project! We appreciate your help i
 
 ## How to Contribute
 
-### Check the Announcement from the Discussions:
+### Check the Announcement from the Discussions
 
 [Announcement](https://github.com/allanoguis/Hacktoberfest-2024/discussions/27)
 

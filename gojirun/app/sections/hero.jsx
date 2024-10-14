@@ -40,7 +40,15 @@ export default function Hero() {
             animate="visible"
             className="absolute inset-0 flex items-center justify-center bg-background z-20"
           >
-            <h2 className="text-2xl font-bold">Loading...</h2>
+            <h2 className="text-2xl font-bold">
+              <svg class="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
+                <path
+                  fill="currentColor"
+                  d="M12 22C17.523 22 22 17.523 22 12H19V7H12V2L6 7l6 5V12h3z"
+                />
+              </svg>
+              Loading...
+            </h2>
           </motion.div>
         )}
         {/* Main Content */}
@@ -62,7 +70,7 @@ export default function Hero() {
           {/* Play Now Button */}
           <Button
             asChild
-            className="px-8 py-6 bg-gradient-to-r from-purple-500 to-pink-600 text-lg font-bold rounded-full hover:from-purple-600 hover:to-pink-700 transition duration-1000 shadow-lg animate-bounce"
+            className="px-8 py-6 bg-gradient-to-r from-accent to-pink-600 text-lg font-bold rounded-full hover:animate-ping-once transition-transform duration-1000 shadow-lg animate-bounce"
           >
             <a href="#game">Play Now</a>
           </Button>
