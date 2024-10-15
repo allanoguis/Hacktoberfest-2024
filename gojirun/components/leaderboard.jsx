@@ -20,7 +20,7 @@ export const Leaderboard = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_KEY}/api/getallgames`
+          `${process.env.NEXT_PUBLIC_API_KEY}/api/leaderboard`
         );
         setData(response.data);
       } catch (error) {
@@ -42,7 +42,7 @@ export const Leaderboard = () => {
       <div className="flex flex-col w-full items-center justify-center text-white">
         <ul className="flex flex-col gap-4">
           {data &&
-            data.games
+            data.leaderboard
               .sort((a, b) => b.score - a.score) // Sort games by score
               .slice(0, 50)
               .map((game, index) => (
@@ -77,7 +77,7 @@ export const Leaderboard = () => {
                       <Badge variant="secondary">{index + 1}</Badge>
                     </CardTitle>
                     <CardHeader>score: {game.score}</CardHeader>
-                    <CardContent>name: {game.playerName}</CardContent>
+                    <CardContent>name: {game.playerName || "Tester"}</CardContent>
                     <CardFooter></CardFooter>
                   </Card>
                 </li>
