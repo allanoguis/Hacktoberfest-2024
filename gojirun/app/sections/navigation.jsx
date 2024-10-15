@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
 import { Moon, Sun, User, LucideHome } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -25,6 +25,14 @@ export default function Navigation() {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const navRef = useRef(null); // testrefhook toscrollup
+
+  useEffect(() => {
+    if (isLoaded && navRef.current) {
+      navRef.current.scrollIntoView({ behavior: "smooth" }); // refhook toscrollup
+    }
+  }, [isLoaded]); // Dependency array includes isLoaded
 
   // Trigger the API call when the user signs in
   useEffect(() => {
@@ -67,7 +75,10 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="flex w-full mx-auto px-4 sm:px-6 lg:px-8 items-center justify-between h-16">
+    <nav
+      ref={navRef}
+      className="flex w-full mx-auto px-4 sm:px-6 lg:px-8 items-center justify-between h-16"
+    >
       {/* User Area */}
       <div className="flex-shrink-0 inline-flex items-center">
         <div className="mr-5">

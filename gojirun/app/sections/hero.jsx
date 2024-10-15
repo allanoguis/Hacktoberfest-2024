@@ -2,12 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import { useUser } from "@clerk/nextjs"; // Clerk's useUser hook
-import { motion, animate, useAnimation } from "framer-motion"; // Added useAnimation
+import { motion } from "framer-motion"; // Added useAnimation
 import Image from "next/image";
 import herogojira from "@/app/images/herogojira.png";
 import herotank from "@/app/images/herotank.png";
 import cloud1 from "@/app/images/cloud1.png";
-
 import useMediaQuery from "@/lib/useMediaQuery";
 
 export default function Hero() {
@@ -26,6 +25,7 @@ export default function Hero() {
   // Calculate screen height
   const screenHeight = typeof window !== "undefined" ? window.innerHeight : 0; // Get screen height
   const screenWidth = typeof window !== "undefined" ? window.innerWidth : 0; // Get screen width
+
   return (
     <motion.div
       initial={{ width: isMobile ? "100%" : "50%" }}
