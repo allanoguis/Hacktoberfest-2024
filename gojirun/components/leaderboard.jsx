@@ -1,45 +1,87 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import {
   Card,
+  CardTitle,
   CardHeader,
   CardContent,
   CardFooter,
-} from "@/components/ui/playerCard";
-// import { db } from "../firebase";
+} from "./ui/playerCard";
+import { Badge } from "./ui/badge";
+import { Medal } from "lucide-react";
+import { Trophy } from "lucide-react";
+import { Star } from "lucide-react";
+export const Leaderboard = () => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-// export async function getServerSideProps() {
-//   const usersRef = db.collection("games");
-//   const snapshot = await usersRef.get();
-//   const users = snapshot.docs.map((doc) => ({
-//     id: doc.id,
-//     ...doc.data(),
-//   }));
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_KEY}/api/getallgames`
+        );
+        setData(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-//   return {
-//     props: { users },
-//   };
-// }
+    fetchData();
+  }, []);
 
-export const Leaderboard = ({ users }) => {
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
-      <div>
-        <ul>
-          {/* {users.map((user) => (
-            <Card key={user.id}>
-              <CardHeader>
-                <span>{user.name}</span> --> no user name reference with games collection
-              </CardHeader>
-              <CardContent>
-                <span>{user.score}</span> --> no user score reference with games collection
-              </CardContent>
-              <CardFooter>
-                <span>{user.email}</span> --> no user email reference with games collection
-              </CardFooter>
-            </Card>
-          ))} */}{" "}
-          TEST TEST
+      <div className="flex flex-col w-full items-center justify-center text-white">
+        <ul className="flex flex-col gap-4">
+          {data &&
+            data.games
+              .sort((a, b) => b.score - a.score) // Sort games by score
+              .slice(0, 50)
+              .map((game, index) => (
+                <li key={game.id}>
+                  <Badge variant="default" className="text-sm">
+                    {(() => {
+                      const badgeLabels = {
+                        0: (
+                          <>
+                            <Trophy className="w-6 h-6 mr-2 animate-pulse" />{" "}
+                            CHAMPION
+                          </>
+                        ),
+                        1: (
+                          <>
+                            <Medal className="w-6 h-6 mr-2 animate-pulse" />{" "}
+                            CHALLENGER
+                          </>
+                        ),
+                        2: (
+                          <>
+                            <Star className="w-6 h-6 mr-2 animate-pulse" />{" "}
+                            RUNNER-UP
+                          </>
+                        ),
+                      };
+                      return badgeLabels[index] || " ";
+                    })()}
+                  </Badge>
+                  <Card>
+                    <CardTitle>
+                      <Badge variant="secondary">{index + 1}</Badge>
+                    </CardTitle>
+                    <CardHeader>score: {game.score}</CardHeader>
+                    <CardContent>name: {game.playerName}</CardContent>
+                    <CardFooter></CardFooter>
+                  </Card>
+                </li>
+              ))}
         </ul>
       </div>
     </>

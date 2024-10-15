@@ -5,7 +5,7 @@ const Card = React.forwardRef(({ className, children, ...props }, ref) => (
   <div
     ref={ref}
     className={cn(
-      "flex rounded-xl bg-card-foreground shadow-lg hover:border-accent transition-all duration-500 transform hover:scale-105",
+      "flex max-w-full rounded-xl bg-card-foreground shadow-lg hover:border-accent transition-all duration-500 transform hover:scale-105",
       className
     )}
     {...props}
@@ -14,6 +14,13 @@ const Card = React.forwardRef(({ className, children, ...props }, ref) => (
   </div>
 ));
 Card.displayName = "Card";
+
+const CardTitle = React.forwardRef(({ className, children, ...props }, ref) => (
+  <div ref={ref} className={cn("flex items-center mx-6", className)} {...props}>
+    {children}
+  </div>
+));
+CardTitle.displayName = "CardTitle";
 
 const CardHeader = React.forwardRef(
   ({ className, children, ...props }, ref) => (
@@ -54,4 +61,4 @@ const CardFooter = React.forwardRef(
 );
 CardFooter.displayName = "CardFooter";
 
-export { Card, CardHeader, CardContent, CardFooter };
+export { Card, CardTitle, CardHeader, CardContent, CardFooter };
