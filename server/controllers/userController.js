@@ -10,7 +10,7 @@ export const userController = async (req, res) => {
     if (!querySnapshot.empty) {
       // If the email exists
       console.log("User with email " + email + " already exists");
-      return res.status(409).json({ message: "User with email " + email + " already exists" });
+      return res.status(204).json({ message: "User with email " + email + " already exists" });
     }
 
     // If the email does not exist, create a new user 
