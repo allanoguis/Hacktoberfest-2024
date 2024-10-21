@@ -364,7 +364,6 @@ export default function Engine() {
           width={GAME_WIDTH}
           height={GAME_HEIGHT}
           className="border border-white bg-gradient-to-b from-blue-400 to-orange-400"
-          onClick={jump}
         />
         <div className="absolute flex flex-col justify-center items-center">
           {gameOver && <GameOverMessage />}

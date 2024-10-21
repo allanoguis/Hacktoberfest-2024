@@ -15,6 +15,7 @@ import { Star } from "lucide-react";
 export const Leaderboard = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null); // New state for error handling
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,6 +26,7 @@ export const Leaderboard = () => {
         setData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
+        setError("Failed to load leaderboard data."); // Set error message
       } finally {
         setLoading(false);
       }
@@ -37,13 +39,18 @@ export const Leaderboard = () => {
     return <div>Loading...</div>;
   }
 
+  if (error) {
+    // Check for error and display message
+    return <div>{error}</div>;
+  }
+
   return (
     <>
       <div className="flex flex-col w-full items-center justify-center text-white">
         <ul className="flex flex-col gap-4">
           {data &&
             data.leaderboard
-              .sort((a, b) => b.score - a.score) // Sort games by score
+              .sort((a, b) => b.score - a.score)
               .slice(0, 50)
               .map((game, index) => (
                 <li key={game.id}>
@@ -77,7 +84,9 @@ export const Leaderboard = () => {
                       <Badge variant="secondary">{index + 1}</Badge>
                     </CardTitle>
                     <CardHeader>score: {game.score}</CardHeader>
-                    <CardContent>name: {game.playerName || "Tester"}</CardContent>
+                    <CardContent>
+                      name: {game.playerName || "Tester"}
+                    </CardContent>
                     <CardFooter></CardFooter>
                   </Card>
                 </li>

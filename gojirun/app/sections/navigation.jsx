@@ -96,95 +96,97 @@ export default function Navigation() {
   };
 
   return (
-    <nav
-      ref={navRef}
-      className="fixed top-0 left-0 flex container z-50 h-20 min-w-full px-8 justify-between items-center bg-transparent"
-    >
-      {/* User Area */}
-      <div className="flex-shrink-0 inline-flex items-center">
-        <div className="mr-3">
-          <span className="text-sm sm:text-base">
-            Player logged in: {username}
-          </span>
-        </div>
-        <div className="flex items-center">
-          {/* User Authentication */}
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
-          <SignedOut>
-            <SignInButton mode="modal" />
-          </SignedOut>
-        </div>
-      </div>
-
-      {/* Navbar Links */}
-      <div className="flex flex-initial space-x-2 items-center">
-        <Button
-          variant="ghost"
-          className="hover:bg-accent transition-all duration-300"
-          onClick={Home}
-        >
-          <LucideHome className="inline-block mr-2 h-4 w-4" />
-          Home
-        </Button>
-
-        {/* Profile Button */}
-        <Button
-          variant="ghost"
-          className="hover:bg-accent transition-all duration-300"
-          onClick={Start}
-        >
-          <Joystick className="inline-block mr-2 h-4 w-4" />
-          Play The Game
-        </Button>
-
-        {/* Profile Button */}
-        <Button
-          variant="ghost"
-          className="hover:bg-accent transition-all duration-300"
-          onClick={profilePage}
-        >
-          <CircleUser className="inline-block mr-2 h-4 w-4" />
-          Profile
-        </Button>
-
-        {/* High Scores Button */}
-        <Button
-          variant="ghost"
-          className="hover:bg-accent transition-all duration-300"
-          onClick={highscorePage}
-        >
-          <Trophy className="inline-block mr-2 h-4 w-4" />
-          Leaderboard
-        </Button>
-
-        {/* Contributors Button */}
-        <Button
-          variant="ghost"
-          className="hover:bg-accent transition-all duration-300"
-          onClick={contributorsPage}
-        >
-          <GitPullRequestArrow className="inline-block mr-2 h-4 w-4" />
-          Contributors
-        </Button>
-
-        {/* Theme Toggle Button */}
-        <Button
-          variant="ghost"
-          className="hover:bg-accent transition-all duration-500"
-          onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-        >
-          <div className="relative h-[1.2rem] w-[1.2rem]">
-            {theme === "light" ? (
-              <Sun className="absolute h-full w-full transition-all" />
-            ) : (
-              <Moon className="absolute h-full w-full transition-all" />
-            )}
+    <>
+      <nav
+        ref={navRef}
+        className="fixed top-0 left-0 flex container z-50 h-20 min-w-full px-8 justify-between items-center bg-transparent"
+      >
+        {/* User Area */}
+        <div className="flex-shrink-0 inline-flex items-center">
+          <div className="mr-3">
+            <span className="text-sm sm:text-base">
+              Player logged in: {username}
+            </span>
           </div>
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      </div>
-    </nav>
+          <div className="flex items-center">
+            {/* User Authentication */}
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+            <SignedOut>
+              <SignInButton mode="modal" />
+            </SignedOut>
+          </div>
+        </div>
+
+        {/* Navbar Links */}
+        <div className="flex flex-initial space-x-2 items-center">
+          <Button
+            variant="ghost"
+            className="hover:bg-accent transition-all duration-300"
+            onClick={Home}
+          >
+            <LucideHome className="inline-block mr-2 h-4 w-4" />
+            Home
+          </Button>
+
+          {/* Profile Button */}
+          <Button
+            variant="ghost"
+            className="hover:bg-accent transition-all duration-300"
+            onClick={Start}
+          >
+            <Joystick className="inline-block mr-2 h-4 w-4" />
+            Play The Game
+          </Button>
+
+          {/* Profile Button */}
+          <Button
+            variant="ghost"
+            className="hover:bg-accent transition-all duration-300"
+            onClick={profilePage}
+          >
+            <CircleUser className="inline-block mr-2 h-4 w-4" />
+            Profile
+          </Button>
+
+          {/* High Scores Button */}
+          <Button
+            variant="ghost"
+            className="hover:bg-accent transition-all duration-300"
+            onClick={highscorePage}
+          >
+            <Trophy className="inline-block mr-2 h-4 w-4" />
+            Leaderboard
+          </Button>
+
+          {/* Contributors Button */}
+          <Button
+            variant="ghost"
+            className="hover:bg-accent transition-all duration-300"
+            onClick={contributorsPage}
+          >
+            <GitPullRequestArrow className="inline-block mr-2 h-4 w-4" />
+            Contributors
+          </Button>
+
+          {/* Theme Toggle Button */}
+          <Button
+            variant="ghost"
+            className="hover:bg-accent transition-all duration-500"
+            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+          >
+            <div className="relative h-[1.2rem] w-[1.2rem]">
+              {theme === "light" ? (
+                <Sun className="absolute h-full w-full transition-all" />
+              ) : (
+                <Moon className="absolute h-full w-full transition-all" />
+              )}
+            </div>
+            <span className="sr-only">Toggle theme</span>
+          </Button>
+        </div>
+      </nav>
+    </>
   );
 }

@@ -19,12 +19,14 @@ export default function RootLayout({ children }) {
         suppressHydrationWarning
       >
         <head />
-        <ThemeProvider attribute="class">
-          <body className="bg-background font-space transition-all duration-300">
-            <Navigation />
+        <body className="bg-background font-space transition-all duration-300">
+          <ThemeProvider attribute="class">
+            <>
+              <Navigation />
+            </>
             {children}
-          </body>
-        </ThemeProvider>
+          </ThemeProvider>
+        </body>
       </html>
     </ClerkProvider>
   );
