@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 const owner = "allanoguis"; // Replace with the repository owner
 const repo = "Hacktoberfest-2024"; // Replace with the repository name
 
-export default function CollaboratorsPage() {
+export default function Collaborators() {
   const [contributors, setContributors] = useState([]);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function CollaboratorsPage() {
   }, []);
 
   return (
-    <div className="min-h-fit w-full">
+    <section id="contibutors" className="min-h-fit w-full mt-10">
       <div className="container mx-auto px-4 py-12">
         <div className="mb-12 text-center">
           <h1 className="text-4xl font-bold mb-4">Credits and Attribution</h1>
@@ -91,6 +91,6 @@ export default function CollaboratorsPage() {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 }

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="min-w-full py-12">
+    <footer className="inset-0 relative">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Website Name and Logo */}
@@ -80,8 +80,8 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Section with Copyright */}
-        <div className="mt-8 pt-8 border-t border-gray-800 text-center">
+        {/* Copyright */}
+        <div className="p-4 text-center items-center">
           <p className="font-regular">
             © {new Date().getFullYear()} Gojirun. All rights reserved.
           </p>

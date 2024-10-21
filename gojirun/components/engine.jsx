@@ -7,13 +7,7 @@ import cloud1Image from "@/app/images/cloud1.png";
 import cloud2Image from "@/app/images/cloud2.png";
 import cloud3Image from "@/app/images/cloud3.png";
 import { saveGame } from "../api/saveGameAPI/route";
-import {
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-  useUser,
-} from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 
 // Constants
 const GAME_HEIGHT = 600;
@@ -99,22 +93,27 @@ export default function Engine() {
   // Handle key press
   const handleKeyPress = useCallback(
     (event) => {
+      const allowedKeys = ["Space"];
       if (!gameStarted) {
         setGameStarted(true);
         setGameOver(false);
         setScore(0);
-      } else {
+      } else if (allowedKeys.includes(event.code) || event.type === "click") {
         jump();
       }
     },
     [gameStarted, jump]
   );
+
   useEffect(() => {
     document.addEventListener("keydown", handleKeyPress);
-    return () => document.removeEventListener("keydown", handleKeyPress);
+    document.addEventListener("click", handleKeyPress);
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress);
+      document.removeEventListener("click", handleKeyPress);
+    };
   }, [handleKeyPress]);
 
-  // Effects
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas?.getContext("2d");
@@ -330,16 +329,16 @@ export default function Engine() {
   };
 
   const GameOverMessage = () => (
-    <span className="mt-5 text-2xl text-primary font-semibold uppercase antialiased">
+    <span className="text-2xl text-primary font-semibold uppercase antialiased">
       G A M E O V E R
     </span>
   );
 
   const StartGameButton = ({ onClick, isGameOver }) => (
-    <span className="flex flex-col h-full left-500 mt-5">
+    <span className="flex flex-col">
       <button
         onClick={onClick}
-        className=" text-primary font-semibold animate-pulse antialiased"
+        className="text-primary font-semibold animate-pulse antialiased"
       >
         {isGameOver ? "R E S T A R T" : "S T A R T   G A M E"}
       </button>
@@ -356,25 +355,27 @@ export default function Engine() {
     setCloud3(GAME_WIDTH);
   };
   return (
-    <div className="flex flex-col relative w-full p-11 text-primary justify-center items-center">
-      <span className="absolute top-1 left-500">Score: {score}</span>
-      <canvas
-        ref={canvasRef}
-        id="gameCanvas"
-        width={GAME_WIDTH}
-        height={GAME_HEIGHT}
-        className="border border-white bg-gradient-to-b from-blue-400 to-orange-400"
-        onClick={jump}
-      />
-      <div className="flex flex-col absolute bottom-50 justify-center items-center">
-        {gameOver && <GameOverMessage />}
-        {!gameStarted && (
-          <StartGameButton onClick={handleStartGame} isGameOver={gameOver} />
-        )}
+    <>
+      <div className="grid relative w-full p-11 text-primary justify-center items-center">
+        <span className="font-semibold text-center">Score: {score}</span>
+        <canvas
+          ref={canvasRef}
+          id="gameCanvas"
+          width={GAME_WIDTH}
+          height={GAME_HEIGHT}
+          className="border border-white bg-gradient-to-b from-blue-400 to-orange-400"
+          onClick={jump}
+        />
+        <div className="absolute flex flex-col justify-center items-center">
+          {gameOver && <GameOverMessage />}
+          {!gameStarted && (
+            <StartGameButton onClick={handleStartGame} isGameOver={gameOver} />
+          )}
+        </div>
+        <div className="mt-4 text-sm text-primary text-center antialiased">
+          press space key to jump
+        </div>
       </div>
-      <div className="mt-4 text-sm text-primary antialiased">
-        click / tap the game area to jump
-      </div>
-    </div>
+    </>
   );
 }

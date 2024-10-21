@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Navigation from "../sections/navigation";
 import { useUser } from "@clerk/nextjs";
 import { fetchHighScore } from "@/api/getHighScoreAPI/route";
 import axios from "axios";
@@ -9,16 +8,22 @@ export default function ProfilePage() {
   const { isLoaded, isSignedIn, user } = useUser();
 
   const uname = isLoaded && isSignedIn && user ? user.firstName : "Guest";
-  const uemail = isLoaded && isSignedIn && user && user.emailAddresses.length > 0
-    ? user.emailAddresses[0].emailAddress
-    : "Guest email";
-  const uimage = isLoaded && isSignedIn && user ? user.imageUrl : "https://nosrc.net/100x100";
-  const ucd = isLoaded && isSignedIn && user && user.createdAt 
-    ? new Date(user.createdAt).toLocaleDateString() 
-    : "DD/MM/YYYY";
-  const uls = isLoaded && isSignedIn && user && user.lastSignInAt 
-    ? new Date(user.lastSignInAt).toLocaleDateString() 
-    : "DD/MM/YYYY";
+  const uemail =
+    isLoaded && isSignedIn && user && user.emailAddresses.length > 0
+      ? user.emailAddresses[0].emailAddress
+      : "Guest email";
+  const uimage =
+    isLoaded && isSignedIn && user
+      ? user.imageUrl
+      : "https://nosrc.net/100x100";
+  const ucd =
+    isLoaded && isSignedIn && user && user.createdAt
+      ? new Date(user.createdAt).toLocaleDateString()
+      : "DD/MM/YYYY";
+  const uls =
+    isLoaded && isSignedIn && user && user.lastSignInAt
+      ? new Date(user.lastSignInAt).toLocaleDateString()
+      : "DD/MM/YYYY";
 
   const [highscore, setHighscore] = useState(0);
   const [error, setError] = useState(null);
@@ -47,7 +52,7 @@ export default function ProfilePage() {
     try {
       const backendURL = process.env.NEXT_PUBLIC_API_KEY;
       const response = await axios.get(`${backendURL}/api/getpastten`, {
-        params: { userId: user.id }
+        params: { userId: user.id },
       });
       setPastGames(response.data.pastTenGames);
     } catch (err) {
@@ -58,7 +63,6 @@ export default function ProfilePage() {
 
   return (
     <>
-      <Navigation />
       <div className="max-w-4xl mx-auto my-10 p-4">
         <header className="flex items-center pb-5">
           <img
@@ -89,46 +93,44 @@ export default function ProfilePage() {
 
         <h2 className="text-2xl font-bold mb-4">Past 10 Games</h2>
         {pastGames.length > 0 ? (
-  <div className="overflow-x-auto p-4 rounded-lg shadow-lg bg-gray-100 dark:bg-gray-800">
-    <table className="w-full text-sm text-left">
-      <thead className="text-xs uppercase bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
-        <tr>
-          <th className="px-6 py-3">Date</th>
-          <th className="px-6 py-3">Score</th>
-          <th className="px-6 py-3">Device</th>
-        </tr>
-      </thead>
-      <tbody>
-        {pastGames.map((game, index) => (
-          <tr
-            key={game.id}
-            className={`border-b ${
-              index % 2 === 0
-                ? "bg-gray-50 dark:bg-gray-700"
-                : "bg-gray-200 dark:bg-gray-600"
-            } hover:bg-gray-100 dark:hover:bg-gray-500 transition-all duration-300`}
-          >
-            <td className="px-6 py-4 text-gray-800 dark:text-gray-200">
-              {new Date(game.time).toLocaleString()}
-            </td>
-            <td className="px-6 py-4 font-semibold text-gray-900 dark:text-gray-100">
-              {game.score}
-            </td>
-            <td className="px-6 py-4 text-gray-800 dark:text-gray-200">
-              {game.deviceType}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-) : (
-  <p className="text-center text-xl text-gray-600 dark:text-gray-400 mt-10">
-    No past games found. Get started and set your first high score!
-  </p>
-)}
-
-
+          <div className="overflow-x-auto p-4 rounded-lg shadow-lg bg-gray-100 dark:bg-gray-800">
+            <table className="w-full text-sm text-left">
+              <thead className="text-xs uppercase bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
+                <tr>
+                  <th className="px-6 py-3">Date</th>
+                  <th className="px-6 py-3">Score</th>
+                  <th className="px-6 py-3">Device</th>
+                </tr>
+              </thead>
+              <tbody>
+                {pastGames.map((game, index) => (
+                  <tr
+                    key={game.id}
+                    className={`border-b ${
+                      index % 2 === 0
+                        ? "bg-gray-50 dark:bg-gray-700"
+                        : "bg-gray-200 dark:bg-gray-600"
+                    } hover:bg-gray-100 dark:hover:bg-gray-500 transition-all duration-300`}
+                  >
+                    <td className="px-6 py-4 text-gray-800 dark:text-gray-200">
+                      {new Date(game.time).toLocaleString()}
+                    </td>
+                    <td className="px-6 py-4 font-semibold text-gray-900 dark:text-gray-100">
+                      {game.score}
+                    </td>
+                    <td className="px-6 py-4 text-gray-800 dark:text-gray-200">
+                      {game.deviceType}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p className="text-center text-xl text-gray-600 dark:text-gray-400 mt-10">
+            No past games found. Get started and set your first high score!
+          </p>
+        )}
       </div>
     </>
   );

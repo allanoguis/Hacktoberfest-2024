@@ -1,6 +1,7 @@
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { ClerkProvider } from "@clerk/nextjs";
+import Navigation from "./sections/navigation";
 
 export const metadata = {
   author: "Allan Oguis",
@@ -18,14 +19,12 @@ export default function RootLayout({ children }) {
         suppressHydrationWarning
       >
         <head />
-        <body className="items-center bg-background justify-items-center p-0 font-space transition-all duration-300">
-          <ThemeProvider
-            className={`flex min-h-screen flex-col`}
-            attribute="class"
-          >
+        <ThemeProvider attribute="class">
+          <body className="bg-background font-space transition-all duration-300">
+            <Navigation />
             {children}
-          </ThemeProvider>
-        </body>
+          </body>
+        </ThemeProvider>
       </html>
     </ClerkProvider>
   );
