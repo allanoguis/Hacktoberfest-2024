@@ -23,6 +23,10 @@ export default function Hero() {
   const screenHeight = typeof window !== "undefined" ? window.innerHeight : 0; // Get screen height
   const screenWidth = typeof window !== "undefined" ? window.innerWidth : 0; // Get screen width
 
+  const Start = () => {
+    router.push("/pages/game");
+  };
+
   return (
     <section className="flex items-center justify-center  min-h-screen min-w-full bg-gradient-to-b from-blue-400 to-orange-400 dark:from-blue-900 dark:to-orange-900 bg-fill">
       {/* Loading Screen */}
@@ -57,8 +61,9 @@ export default function Hero() {
         <Button
           asChild
           className="px-8 py-6 bg-gradient-to-r from-accent to-pink-600 text-lg font-bold rounded-full hover:animate-ping-once transition-transform duration-1000 shadow-lg animate-bounce"
+          onClick={Start}
         >
-          <a href="#game">Play Now</a>
+          <span>Play Now</span>
         </Button>
       </motion.div>
 
