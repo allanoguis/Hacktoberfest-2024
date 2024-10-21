@@ -15,7 +15,7 @@ import { Star } from "lucide-react";
 export const Leaderboard = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null); // New state for error handling
+  const [error, setError] = useState(null); //  if theres an error, use Failed to load leaderboard data
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,10 +23,11 @@ export const Leaderboard = () => {
         const response = await axios.get(
           `${process.env.NEXT_PUBLIC_API_KEY}/api/leaderboard`
         );
+        console.log("API Response:", response.data); // debugging line to check API response
         setData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
-        setError("Failed to load leaderboard data."); // Set error message
+        setError("Failed to load leaderboard data.");
       } finally {
         setLoading(false);
       }
@@ -40,20 +41,25 @@ export const Leaderboard = () => {
   }
 
   if (error) {
-    // Check for error and display message
     return <div>{error}</div>;
   }
 
   return (
     <>
-      <div className="flex flex-col w-full items-center justify-center text-white">
+      <div className="flex flex-col w-full h-screen overflow-y-scroll items-center justify-center text-white">
+        <div className="mb-10">
+          <Badge variant="default" className="text-xl">
+            Top Ranking Players
+          </Badge>
+        </div>
         <ul className="flex flex-col gap-4">
           {data &&
             data.leaderboard
               .sort((a, b) => b.score - a.score)
-              .slice(0, 50)
+              .slice(0, 5)
               .map((game, index) => (
-                <li key={game.id}>
+                <li key={`${game.id}-${index}`}>
+                  {" "}
                   <Badge variant="default" className="text-sm">
                     {(() => {
                       const badgeLabels = {
