@@ -1,10 +1,13 @@
 // "use client";
+import { Suspense } from "react";
 import Hero from "./sections/hero";
 
 export default function Home() {
   return (
-    <>
-      <Hero />
-    </>
+    <Suspense>
+      <>
+        <Hero />
+      </>
+    </Suspense>
   );
 }

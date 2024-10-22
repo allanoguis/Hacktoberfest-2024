@@ -12,6 +12,7 @@ import { Badge } from "./ui/badge";
 import { Medal } from "lucide-react";
 import { Trophy } from "lucide-react";
 import { Star } from "lucide-react";
+
 export const Leaderboard = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);

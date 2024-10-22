@@ -1,4 +1,3 @@
-import React from "react";
 import Leaderboard from "@/components/leaderboard";
 
 const leaderboardPage = () => {
