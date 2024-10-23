@@ -91,9 +91,15 @@ export default function Engine() {
   }, [jumping, gameOver]);
 
   // Handle key press
-  const handleKeyPress = useCallback(
+  const handleInput = useCallback(
     (event) => {
-      const allowedKeys = ["Space"];
+      const allowedKeys = [
+        "Space",
+        "ArrowRight",
+        "ArrowUp",
+        "ArrowLeft",
+        "ArrowDown",
+      ];
       if (!gameStarted) {
         setGameStarted(true);
         setGameOver(false);
@@ -106,13 +112,13 @@ export default function Engine() {
   );
 
   useEffect(() => {
-    document.addEventListener("keydown", handleKeyPress);
-    document.addEventListener("click", handleKeyPress);
+    document.addEventListener("keydown", handleInput);
+    document.addEventListener("click", handleInput);
     return () => {
-      document.removeEventListener("keydown", handleKeyPress);
-      document.removeEventListener("click", handleKeyPress);
+      document.removeEventListener("keydown", handleInput);
+      document.removeEventListener("click", handleInput);
     };
-  }, [handleKeyPress]);
+  }, [handleInput]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
