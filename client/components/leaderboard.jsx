@@ -22,7 +22,7 @@ export const Leaderboard = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_KEY}/api/leaderboard`
+          `${process.env.NEXT_PUBLIC_API_KEY}/api/highscore`
         );
         console.log("API Response:", response.data); // debugging line to check API response
         setData(response.data);

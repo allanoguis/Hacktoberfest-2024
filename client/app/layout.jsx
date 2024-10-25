@@ -1,7 +1,7 @@
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { ClerkProvider } from "@clerk/nextjs";
-import Navigation from "./sections/navigation";
+import Navigation from "../components/navigation";
 
 export const metadata = {
   author: "Allan Oguis",

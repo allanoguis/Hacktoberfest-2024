@@ -1,7 +1,8 @@
-import db from "../firebaseConfig.js";
+import db from "../../client/lib/firebaseConfig.js";
 
 export const userController = async (req, res) => {
-  const { userId, email, fullname, profileImageUrl, createdAt, lastSignInAt } = req.body;
+  const { userId, email, fullname, profileImageUrl, createdAt, lastSignInAt } =
+    req.body;
 
   try {
     const usersRef = db.collection("users");
@@ -10,10 +11,12 @@ export const userController = async (req, res) => {
     if (!querySnapshot.empty) {
       // If the email exists
       console.log("User with email " + email + " already exists");
-      return res.status(204).json({ message: "User with email " + email + " already exists" });
+      return res
+        .status(204)
+        .json({ message: "User with email " + email + " already exists" });
     }
 
-    // If the email does not exist, create a new user 
+    // If the email does not exist, create a new user
     const newUser = await usersRef.add({
       userId,
       email,
@@ -21,7 +24,7 @@ export const userController = async (req, res) => {
       profileImageUrl,
       createdAt,
       lastSignInAt,
-      createdAt: new Date(), 
+      createdAt: new Date(),
     });
 
     console.log("User created with ID: ", newUser.id);

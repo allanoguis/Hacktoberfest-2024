@@ -1,6 +1,6 @@
 // "use client";
 import { Suspense } from "react";
-import Hero from "./sections/hero";
+import Hero from "../components/hero";
 
 export default function Home() {
   return (

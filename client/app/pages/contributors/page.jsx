@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
-import Collaborators from "../../sections/contributors";
-import Footer from "../../sections/footer";
+import Collaborators from "../../../components/contributors";
+import Footer from "../../../components/footer";
 
 const contributorsPage = () => {
   return (

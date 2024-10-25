@@ -1,2 +1,4 @@
 .vercel
 lazygit.exe
+client/.env.local
+client/key.json
