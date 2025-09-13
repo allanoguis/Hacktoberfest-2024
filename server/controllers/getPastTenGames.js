@@ -1,4 +1,4 @@
-import db from "../../client/lib/firebaseConfig.js";
+import db from "../firebaseConfig.js";
 
 export const getpastTenGames = async (req, res) => {
   try {
@@ -25,7 +25,6 @@ export const getpastTenGames = async (req, res) => {
 
     res.status(200).json({ pastTenGames });
   } catch (error) {
-    console.error("Error in getpastTenGames:", error);
     res.status(500).json({ message: "Error getting past ten games" });
   }
 };

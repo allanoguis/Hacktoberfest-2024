@@ -1,4 +1,4 @@
-import db from "../../client/lib/firebaseConfig.js";
+import db from "../firebaseConfig.js";
 
 export const getAllGames = async (req, res) => {
   try {
@@ -14,7 +14,6 @@ export const getAllGames = async (req, res) => {
 
     res.status(200).json({ games });
   } catch (error) {
-    console.error("Error in getAllGames:", error);
     res.status(500).json({ message: "Error retrieving games" });
   }
 };
@@ -36,7 +35,6 @@ export const getGameById = async (req, res) => {
 
     res.status(200).json({ game });
   } catch (error) {
-    console.error("Error in getGameById:", error);
     res.status(500).json({ message: "Error retrieving game" });
   }
 };

@@ -1,4 +1,4 @@
-import db from "../../client/lib/firebaseConfig.js";
+import db from "../firebaseConfig.js";
 
 export const getLeaderBoard = async (req, res) => {
   try {
@@ -34,9 +34,6 @@ export const getLeaderBoard = async (req, res) => {
     const leaderboard = await Promise.all(
       topPlayers.map(async (player) => {
         if (!player.playerId) {
-          console.warn(
-            `Invalid playerId for player: ${JSON.stringify(player)}`
-          );
           return player; // Return player data without additional info
         }
 
@@ -49,10 +46,6 @@ export const getLeaderBoard = async (req, res) => {
             email: userData ? userData.email : null,
           };
         } catch (error) {
-          console.error(
-            `Error fetching user data for player ${player.playerId}:`,
-            error
-          );
           return player; // Return player data without additional info
         }
       })
@@ -60,7 +53,6 @@ export const getLeaderBoard = async (req, res) => {
 
     res.status(200).json({ leaderboard });
   } catch (error) {
-    console.error("Error in getLeaderBoard:", error);
     res.status(500).json({ message: "Error in getLeaderBoard controller" });
   }
 };
