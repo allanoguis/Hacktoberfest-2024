@@ -24,7 +24,7 @@ body {
 }
 
 html {
-  overflow: hidden;
+  overflow: scroll;
 }
 
 ::-webkit-scrollbar {
@@ -103,4 +103,14 @@ html {
 
 .colorpicker {
   background-color: hsl(50, 100%, 50%);
+}
+
+
+next-route-announcer {
+  position: static !important; 
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
 }

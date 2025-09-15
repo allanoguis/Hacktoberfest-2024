@@ -43,7 +43,7 @@ export default function Collaborators() {
               </span>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className=" mb-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {contributors.map((contributor) => (
               <Card key={contributor.id}>
                 <CardHeader>
