@@ -1,4 +1,4 @@
-import db from "../../client/lib/firebaseConfig.js";
+import db from "../firebaseConfig.js";
 
 export const getHighscoreForPlayer = async (req, res) => {
   const { playerId } = req.query;
@@ -6,7 +6,6 @@ export const getHighscoreForPlayer = async (req, res) => {
   if (!playerId) {
     return res.status(400).json({ message: "Player ID is required" });
   }
-  console.log("playerId: " + playerId);
 
   try {
     const gamesRef = db.collection("games");
@@ -32,9 +31,7 @@ export const getHighscoreForPlayer = async (req, res) => {
     });
 
     res.status(200).json({ topGame });
-    console.log(topGame.score);
   } catch (error) {
-    console.error("Error retrieving high score for player:", error);
     res.status(500).json({ message: "Error retrieving high score for player" });
   }
 };

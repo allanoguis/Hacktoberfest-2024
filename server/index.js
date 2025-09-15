@@ -3,8 +3,6 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import Routes from './routes/route.js';
-import './firebaseConfig.js';  // Import Firebase configuration
-
 dotenv.config(); 
 
 const app = express();
@@ -19,5 +17,5 @@ app.use(cors());
 app.use('/', Routes);  
 
 app.listen(PORT, () => {
-  console.log(`Server is running on PORT ${PORT}`);
+  // Server started
 });
