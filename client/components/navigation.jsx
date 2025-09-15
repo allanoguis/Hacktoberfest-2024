@@ -10,6 +10,8 @@ import {
   GitPullRequestArrow,
   LucideHome,
   Joystick,
+  Menu,
+  X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -21,172 +23,108 @@ import {
   useUser,
 } from "@clerk/nextjs";
 
-// import axios from "axios"; // For making API requests
-
 export default function Navigation() {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
-  const { isLoaded, isSignedIn, user } = useUser(); // Use Clerk's useUser hook to detect sign-in
+  const { isLoaded, isSignedIn, user } = useUser();
   const username = isLoaded && isSignedIn && user ? user.firstName : "Guest";
+
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const navRef = useRef(null); // testrefhook toscrollup
+  if (!mounted) return null;
 
-  useEffect(() => {
-    if (isLoaded && navRef.current) {
-      navRef.current.scrollIntoView({ behavior: "smooth" }); // refhook toscrollup
-    }
-  }, [isLoaded]); // Dependency array includes isLoaded
-
-  // Trigger the API call when the user signs in
-  useEffect(() => {
-    const fetchData = async () => {
-      if (isLoaded && isSignedIn && user) {
-        try {
-          //  const backendURL = process.env.NEXT_PUBLIC_API_KEY;
-
-          const data = {
-            userId: user.id || "000000", // User ID
-            email: user.emailAddresses?.[0]?.emailAddress || "No Email", // Email address
-            fullname: user.fullName || "No Name", // Full name
-            profileImageUrl: user.imageUrl || "",
-            createdAt: user.createdAt, // User account creation timestamp
-            lastSignInAt: user.lastSignInAt, // Last sign-in timestamp
-          };
-
-          // Make API call to your backend
-          // const response = await axios.post(`${backendURL}/api/users`, data); // POST request to /api/users
-
-          console.log(data);
-        } catch (error) {
-          console.error("Error calling API:", error);
-        }
-      }
-    };
-
-    fetchData();
-  }, [isLoaded, isSignedIn, user]); // Depend on `isSignedIn` and `isLoaded` for reactivity
-
-  if (!mounted) {
-    return null;
-  }
-
-  const Home = () => {
-    router.push("/");
-  };
-
-  const Start = () => {
-    router.push("/pages/game");
-  };
-
-  const profilePage = () => {
-    router.push("/pages/profile");
-  };
-
-  const highscorePage = () => {
-    router.push("/pages/leaderboard");
-  };
-
-  const contributorsPage = () => {
-    router.push("/pages/contributors");
-  };
+  const navItems = [
+    { label: "Home", icon: LucideHome, onClick: () => router.push("/") },
+    { label: "Play The Game", icon: Joystick, onClick: () => router.push("/pages/game") },
+    { label: "Profile", icon: CircleUser, onClick: () => router.push("/pages/profile") },
+    { label: "Leaderboard", icon: Trophy, onClick: () => router.push("/pages/leaderboard") },
+    { label: "Contributors", icon: GitPullRequestArrow, onClick: () => router.push("/pages/contributors") },
+  ];
 
   return (
-    <>
-      <nav
-        ref={navRef}
-        className="fixed top-0 left-0 flex container z-50 h-20 min-w-full px-8 justify-between items-center bg-transparent"
-      >
-        {/* User Area */}
-        <div className="flex-shrink-0 inline-flex items-center">
-          <div className="mr-3">
-            <span className="text-sm sm:text-base">
-              Player logged in: {username}
-            </span>
-          </div>
-          <div className="flex items-center">
-            {/* User Authentication */}
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-            <SignedOut>
-              <SignInButton mode="modal" />
-            </SignedOut>
-          </div>
-        </div>
+    <nav className="fixed top-0 left-0 z-50 w-full bg-transparent backdrop-blur-md px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      {/* Left section */}
+      <div className="flex items-center space-x-3">
+        <span className="text-sm sm:text-base">
+          Player logged in: {username}
+        </span>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+        <SignedOut>
+          <SignInButton mode="modal" />
+        </SignedOut>
+      </div>
 
-        {/* Navbar Links */}
-        <div className="flex flex-initial space-x-2 items-center">
+      {/* Desktop Menu */}
+      <div className="hidden md:flex space-x-2 items-center">
+        {navItems.map(({ label, icon: Icon, onClick }) => (
           <Button
+            key={label}
             variant="ghost"
             className="hover:bg-accent transition-all duration-300"
-            onClick={Home}
+            onClick={onClick}
           >
-            <LucideHome className="inline-block mr-2 h-4 w-4" />
-            Home
+            <Icon className="inline-block mr-2 h-4 w-4" />
+            {label}
           </Button>
+        ))}
 
-          {/* Profile Button */}
+        {/* Theme Toggle */}
+        <Button
+          variant="ghost"
+          className="hover:bg-accent transition-all duration-300"
+          onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+        >
+          {theme === "light" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+        </Button>
+      </div>
+
+      {/* Mobile Menu Button */}
+      <div className="md:hidden">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setMobileOpen(!mobileOpen)}
+        >
+          {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        </Button>
+      </div>
+
+      {/* Mobile Dropdown */}
+      {mobileOpen && (
+        <div className="absolute top-16 left-0 w-full bg-background shadow-lg rounded-b-xl p-4 space-y-2 md:hidden">
+          {navItems.map(({ label, icon: Icon, onClick }) => (
+            <Button
+              key={label}
+              variant="ghost"
+              className="w-full justify-start hover:bg-accent transition-all"
+              onClick={() => {
+                onClick();
+                setMobileOpen(false);
+              }}
+            >
+              <Icon className="inline-block mr-2 h-4 w-4" />
+              {label}
+            </Button>
+          ))}
+
+          {/* Theme Toggle Mobile */}
           <Button
             variant="ghost"
-            className="hover:bg-accent transition-all duration-300"
-            onClick={Start}
-          >
-            <Joystick className="inline-block mr-2 h-4 w-4" />
-            Play The Game
-          </Button>
-
-          {/* Profile Button */}
-          <Button
-            variant="ghost"
-            className="hover:bg-accent transition-all duration-300"
-            onClick={profilePage}
-          >
-            <CircleUser className="inline-block mr-2 h-4 w-4" />
-            Profile
-          </Button>
-
-          {/* High Scores Button */}
-          <Button
-            variant="ghost"
-            className="hover:bg-accent transition-all duration-300"
-            onClick={highscorePage}
-          >
-            <Trophy className="inline-block mr-2 h-4 w-4" />
-            Leaderboard
-          </Button>
-
-          {/* Contributors Button */}
-          <Button
-            variant="ghost"
-            className="hover:bg-accent transition-all duration-300"
-            onClick={contributorsPage}
-          >
-            <GitPullRequestArrow className="inline-block mr-2 h-4 w-4" />
-            Contributors
-          </Button>
-
-          {/* Theme Toggle Button */}
-          <Button
-            variant="ghost"
-            className="hover:bg-accent transition-all duration-500"
+            className="w-full justify-start hover:bg-accent transition-all"
             onClick={() => setTheme(theme === "light" ? "dark" : "light")}
           >
-            <div className="relative h-[1.2rem] w-[1.2rem]">
-              {theme === "light" ? (
-                <Sun className="absolute h-full w-full transition-all" />
-              ) : (
-                <Moon className="absolute h-full w-full transition-all" />
-              )}
-            </div>
-            <span className="sr-only">Toggle theme</span>
+            {theme === "light" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            <span className="ml-2">Toggle Theme</span>
           </Button>
         </div>
-      </nav>
-    </>
+      )}
+    </nav>
   );
 }
