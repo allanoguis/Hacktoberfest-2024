@@ -257,7 +257,7 @@ export default function Engine() {
     }
 
     return () => cancelAnimationFrame(gameLoopRef.current);
-  }, [gameStarted, gameOver, obstacle, ground]);
+  }, [gameStarted, gameOver, obstacle, ground, cloud1, cloud2, cloud3, jumping]);
 
   useEffect(() => {
     // Retrieve score from localStorage when the component mounts
@@ -268,7 +268,7 @@ export default function Engine() {
     } else {
       setScore(0); // Reset score to 0 if game is over or no saved score
     }
-  }, []);
+  }, [gameOver]);
 
   useEffect(() => {
     // Save the score to localStorage whenever it changes
@@ -276,9 +276,9 @@ export default function Engine() {
     if (gameOver) {
       saveGameFromFrontend();
     }
-  }, [score]); // Run whenever score changes
+  }, [score, gameOver, saveGameFromFrontend]); // Run whenever score changes
 
-  const saveGameFromFrontend = async () => {
+  const saveGameFromFrontend = useCallback(async () => {
     try {
       // Fetch the public IP address
       const ipResponse = await fetch("https://api64.ipify.org?format=json");
@@ -332,7 +332,7 @@ export default function Engine() {
     } catch (error) {
       console.error("Error fetching IP or saving game data:", error);
     }
-  };
+  }, [isLoaded, isSignedIn, user, score]);
 
   const GameOverMessage = () => (
     <span className="text-2xl text-primary font-semibold uppercase antialiased">

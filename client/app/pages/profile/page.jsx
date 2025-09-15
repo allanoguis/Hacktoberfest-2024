@@ -1,8 +1,9 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useUser } from "@clerk/nextjs";
 import { fetchHighScore } from "@/api/getHighScoreAPI/route";
 import axios from "axios";
+import Image from "next/image";
 
 export default function ProfilePage() {
   const { isLoaded, isSignedIn, user } = useUser();
@@ -34,9 +35,10 @@ export default function ProfilePage() {
       getHighScore();
       getPastTenGames();
     }
-  }, [isSignedIn, user]);
+  }, [isSignedIn, user, getHighScore, getPastTenGames]);
 
-  const getHighScore = async () => {
+  const getHighScore = useCallback(async () => {
+    if (!user?.id) return;
     try {
       const res = await fetchHighScore({ playerId: user.id });
       if (res.topGame) {
@@ -46,9 +48,10 @@ export default function ProfilePage() {
       console.error("Error fetching high score:", err);
       setError("Failed to fetch high score");
     }
-  };
+  }, [user?.id]);
 
-  const getPastTenGames = async () => {
+  const getPastTenGames = useCallback(async () => {
+    if (!user?.id) return;
     try {
       const backendURL = process.env.NEXT_PUBLIC_API_KEY;
       const response = await axios.get(`${backendURL}/api/getpastten`, {
@@ -59,15 +62,17 @@ export default function ProfilePage() {
       console.error("Error fetching past games:", err);
       setError("Failed to fetch past games");
     }
-  };
+  }, [user?.id]);
 
   return (
     <>
       <div className="max-w-4xl mx-auto my-10 p-4">
         <header className="flex items-center pb-5">
-          <img
+          <Image
             src={uimage}
             alt={uname}
+            width={80}
+            height={80}
             className="w-20 h-20 rounded-full mr-10"
           />
           <div>
@@ -87,7 +92,7 @@ export default function ProfilePage() {
           </div>
           <div className="p-4 rounded-lg text-center bg-chart-2">
             <p className="font-bold">High Score</p>
-            <p>{0 || highscore}</p>
+            <p>{highscore}</p>
           </div>
         </div>
 
